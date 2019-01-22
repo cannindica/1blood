@@ -1,0 +1,137 @@
+{% extends 'awal.html' %}
+{% load staticfiles %}
+
+{% block content %}
+	<section class="banner_area">
+		<div class="banner_inner d-flex align-items-center">
+			<div class="container">
+				<div class="banner_content text-right">
+					<h1>Data Abdimas Prodi {{ prodi.nama }}</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<section class="section_gap portfolio_area" id="work">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-6 text-center">
+					<div class="main-title">
+					
+						<form method='GET' action='' class='row'>
+			    			<div class="col-sm-2"></div>
+			      				<div class='col-sm-8'>
+			          				<div class='input-group'>
+			            				<input class='form-control' type='text' name='q' placeholder='Judul atau Tahun' value='{{ request.GET.q }}'/>
+			            				<span class='input-group-btn'>
+			              					<button class='btn btn-default' type='submit'><i class="fa fa-search"></i>	</button>
+			            				</span>
+			          				</div>
+			     				</div>	
+			    			<div class="col-sm-2"><!-- <input type="checkbox" id="scales" name="publikasi"
+			    					               value="scales" onclick="myFunction()" />
+			    					        <label for="scales">Scales</label> --></div>
+	  					</form>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Judul</th>
+							<th scope="col">Opsi</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% for i in pengabdian_list1 %}
+						<tr>
+							<td>{{ forloop.counter }}</td>
+							<td><a href="#">{{ i.judul }}</a></td>
+							<td>
+								<button type="button" data-toggle="modal" data-target="#viewPengabdian{{ i.pk }}">
+									<img src="{% static 'icon/png/eye-2x.png' %}" alt="">
+								</button>
+							</td>
+						</tr>
+						<!-- modal view pengabdian -->
+						<div class="modal fade" id="viewPengabdian{{ i.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Detail Pengabdian</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form action="" method="POST">{% csrf_token %}
+											<input type="hidden" name="aksi" value="update_pengabdian">
+											<input type="hidden" name="pk_pengabdian" value="{{ i.pk }}">
+											<div class="form-group">
+						      					<div class="input-group mb-3">
+						        					<div class="input-group-prepend">
+						          						<span class="input-group-text" id="basic-addon1">Judul</span>
+						        					</div>
+						        					<input type="text" class="form-control" placeholder="{{ i.judul }}" aria-label="Judul" aria-describedby="basic-addon1" name="judul" value="{{ i.judul }}" disabled />
+						      					</div>
+						    				</div>
+						    				<div class="form-group">
+						      					<div class="input-group mb-3">
+						        					<div class="input-group-prepend">
+						          						<span class="input-group-text" id="basic-addon1">Tahun</span>
+						        					</div>
+						        					<input type="number" class="form-control" placeholder="{{ i.tahun }}" aria-label="Judul" aria-describedby="basic-addon1" name="tahun" value="{{ i.tahun }}" disabled />
+						        					<!-- {{ formpengabdian.tahun }} -->
+						      					</div>
+						    				</div>
+						    				<div class="form-group">
+					    						<div class="input-group mb-3">
+					      							<div class="input-group-prepend">
+					        							<span class="input-group-text">Lokasi</span>
+					      							</div>
+					      							<textarea class="form-control" aria-label="Lokasi" name="lokasi" disabled>{{ i.lokasi }}</textarea>
+					    						</div>
+					  						</div>
+					  						<div class="form-group">
+					        					<div class="input-group mb-3">
+					        						<a href="{{ i.file.url }}" target="_blank">
+					          							{{ i.file.url }}
+					        						</a>
+					          						<!-- {{ formpengabdian.file }} -->
+					        					</div>
+					      					</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- end modal view pengabdian -->
+					{% endfor %}
+					</tbody>
+				</table>
+			</div> <br />
+
+			<div class="pagination">
+	    		<span class="step-links">
+		        	{% if pengabdian_list1.has_previous %}
+		            <a href="?page=1">&laquo; first</a>
+		            <a href="?page={{ pengabdian_list1.previous_page_number }}">previous</a>
+		        	{% endif %}
+		        	<span class="current">
+		            	Page {{ pengabdian_list1.number }} of {{ pengabdian_list1.paginator.num_pages }}.
+		        	</span>
+		        	{% if pengabdian_list1.has_next %}
+		            <a href="?page={{ pengabdian_list1.next_page_number }}">next</a>
+		            <a href="?page={{ pengabdian_list1.paginator.num_pages }}">last &raquo;</a>
+		        	{% endif %}
+	    		</span>
+			</div>
+
+		</div>
+	</section>
+{% endblock content %}

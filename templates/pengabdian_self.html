@@ -1,0 +1,229 @@
+{% extends 'home.html' %}
+{% load staticfiles %}
+{% load notifications_tags %}
+
+{% block style %}
+
+{% endblock style %}
+
+{% block content %}
+
+<!-- {% notifications_unread as unread_count %}
+
+{% if unread_count %}
+	You have <strong>{{ unread_count }}</strong> unread notifications.
+{% endif %}
+
+<h1>{% live_notify_badge %}</h1>
+
+{{ user.notifications.unread }} -->
+
+{% if messages %}   
+    {% for message in messages %}
+    <input type="hidden" id="messages_status" value="{{ message.tags }}">
+    <input type="hidden" id="messages_content" value="{{ message }}">
+    {% endfor %}
+{% endif %}
+
+	<section class="banner_area">
+		<div class="banner_inner d-flex align-items-center">
+			<div class="container">
+				<div class="banner_content text-right">
+					<h1>Daftar Abdimas Anda</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section_gap portfolio_area" id="work">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-6 text-center">
+					<div class="main-title">
+					
+						<form method='GET' action='' class='row'>
+			    			<div class="col-sm-2"></div>
+			      				<div class='col-sm-8'>
+			          				<div class='input-group'>
+			            				<input class='form-control' type='text' name='q' placeholder='Judul atau Tahun' value='{{ request.GET.q }}'/>
+			            				<span class='input-group-btn'>
+			              					<button class='btn btn-default' type='submit'><i class="fa fa-search"></i>	</button>
+			            				</span>
+			          				</div>
+			     				</div>	
+			    			<div class="col-sm-2"><!-- <input type="checkbox" id="scales" name="publikasi"
+			    					               value="scales" onclick="myFunction()" />
+			    					        <label for="scales">Scales</label> --></div>
+	  					</form>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Judul</th>
+							<th scope="col">Tahun</th>
+							<th scope="col">Lokasi</th>
+							<th scope="col">Detail</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% for i in list_pengabdian_self1 %}
+						<tr>
+							<td>{{ forloop.counter0|add:list_pengabdian_self1.start_index }}</td>
+							<td><a href="#">{{ i.judul }}</a></td>
+							<td>
+								{% if i.status == False %}
+								<button type="button" data-toggle="modal" data-target="#updatePengabdian{{ i.pk }}">
+									<img src="{% static 'icon/png/pencil-2x.png' %}" alt="">
+								</button>
+								{% endif %}
+								<button type="button" data-toggle="modal" data-target="#viewPengabdian{{ i.pk }}">
+									<img src="{% static 'icon/png/eye-2x.png' %}" alt="">
+								</button>
+								<button type="button" data-toggle="modal" data-target="#deletePengabdian{{ i.pk }}">
+									<img src="{% static 'icon/png/trash-2x.png' %}" alt="">
+								</button>
+							</td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+
+				<button type="button" class="btn" data-toggle="modal" data-target="#createPengabdian"><img src="{% static 'icon/png/plus-2x.png' %}" alt=""></button>
+
+				<!-- modal create pengabdian -->
+				<div class="modal fade" id="createPengabdian" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Tambah Pengabdian</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form action="" method="POST" enctype='multipart/form-data' id="addPengabdianForm">{% csrf_token %}
+									<div class="form-group">
+				      					<div class="input-group mb-3">
+				        					<div class="input-group-prepend">
+				          						<span class="input-group-text" id="basic-addon1">Judul</span>
+				        					</div>
+				        					<input type="text" class="form-control" placeholder="" aria-label="Judul" aria-describedby="basic-addon1" name="judul" value="" required />
+				      					</div>
+				    				</div>
+				    				<div class="form-group">
+				      					<div class="input-group mb-3">
+				        					<div class="input-group-prepend">
+				          						<span class="input-group-text" id="basic-addon1">Tahun</span>
+				        					</div>
+				        					<!-- <input type="number" class="form-control" placeholder="" aria-label="Judul" aria-describedby="basic-addon1" name="tahun" value="" required /> -->
+				        					{{ formPengabdian.tahun }}
+				      					</div>
+				    				</div>
+				    				<div class="form-group">
+			    						<div class="input-group mb-3">
+			      							<div class="input-group-prepend">
+			        							<span class="input-group-text">Lokasi</span>
+			      							</div>
+			      							<textarea class="form-control" aria-label="Lokasi" name="lokasi" required></textarea>
+			    						</div>
+			  						</div>
+			  						<div class="form-group">
+			        					<div class="input-group mb-3">
+			          						{{ formPengabdian.file }}
+			        					</div>
+			        					<small id="fileHelpBlock" class="form-text text-muted">
+								          File laporan harus berupa pdf.
+								       	</small>
+			      					</div>
+			      					<div class="form-group">
+			    						<button type="submit" class="btn" disabled id="btnAddPengabdian"><img src="{% static 'icon/png/plus-2x.png' %}" alt=""></button>
+			  						</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- end modal create pengabdian -->
+			</div> <br />
+
+			<div class="pagination">
+	    		<span class="step-links">
+		        	{% if list_pengabdian_self.has_previous %}
+		            <a href="?page=1">&laquo; first</a>
+		            <a href="?page={{ list_pengabdian_self.previous_page_number }}">previous</a>
+		        	{% endif %}
+		        	<span class="current">
+		            	Page {{ list_pengabdian_self.number }} of {{ list_pengabdian_self.paginator.num_pages }}.
+		        	</span>
+		        	{% if list_pengabdian_self.has_next %}
+		            <a href="?page={{ list_pengabdian_self.next_page_number }}">next</a>
+		            <a href="?page={{ list_pengabdian_self.paginator.num_pages }}">last &raquo;</a>
+		        	{% endif %}
+	    		</span>
+			</div>
+
+		</div>
+	</section>
+{% endblock content %}
+
+<script>
+{% block js %}
+(function($) {
+    $.fn.checkFileType = function(options) {
+        var defaults = {
+            allowedExtensions: [],
+            success: function() {},
+            error: function() {}
+        };
+        options = $.extend(defaults, options);
+
+        return this.each(function() {
+
+            $(this).on('change', function() {
+                var value = $(this).val(),
+                    file = value.toLowerCase(),
+                    extension = file.substring(file.lastIndexOf('.') + 1);
+
+                if ($.inArray(extension, options.allowedExtensions) == -1) {
+                    options.error();
+                    $(this).focus();
+                } else {
+                    options.success();
+
+                }
+
+            });
+
+        });
+    };
+
+})(jQuery);
+
+$(function() {
+    $('#id_file').checkFileType({
+        allowedExtensions: ['pdf'],
+        success: function() {
+            /*alert('Success');*/
+            $("#btnAddPengabdian").prop('disabled', false);
+        },
+        error: function() {
+            alert('Error');
+        }
+    });
+});
+
+var messages_status = $('#messages_status').val();
+var messages_content = $('#messages_content').val();
+if(messages_status == "success") {
+	alertify.success(messages_content);
+} else if(messages_status == "error") {
+	alertify.error(messages_content);
+}
+{% endblock js %}
+</script>
