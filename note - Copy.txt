@@ -1,0 +1,249 @@
+?. validation when input file not supported (must pdf)
+	(function($) {
+	    $.fn.checkFileType = function(options) {
+	        var defaults = {
+	            allowedExtensions: [],
+	            success: function() {},
+	            error: function() {}
+	        };
+	        options = $.extend(defaults, options);
+
+	        return this.each(function() {
+
+	            $(this).on('change', function() {
+	                var value = $(this).val(),
+	                    file = value.toLowerCase(),
+	                    extension = file.substring(file.lastIndexOf('.') + 1);
+
+	                if ($.inArray(extension, options.allowedExtensions) == -1) {
+	                    options.error();
+	                    $(this).focus();
+	                } else {
+	                    options.success();
+
+	                }
+
+	            });
+
+	        });
+	    };
+
+	})(jQuery);
+
+	$(function() {
+	    $('#id_file').checkFileType({
+	        allowedExtensions: ['pdf'],
+	        success: function() {
+	            /*alert('Success');*/
+	            $("#btnAddPenelitian").prop('disabled', false);
+	        },
+	        error: function() {
+	            alert('Error');
+	        }
+	    });
+	    $('#id_file_update').checkFileType({
+	        allowedExtensions: ['pdf'],
+	        success: function() {
+	        	$("#btnUpdatePenelitian").prop('disabled', false);
+	        },
+	        error: function() {
+	            alert('Error');
+	            $("#btnUpdatePenelitian").prop('disabled', true);
+	        }
+	    });
+	});
+
+
+?. scroll mode on notif
+?. different between post_new and post_edit on notif
+?. get **kwargs, how to **kwargs work
+
+
+How to do it:
+	1. Use two db
+		a. first db for univ
+		b. second for penelitian or pengabdian
+	2. API method
+		a. authentication user (login, logout, detail)
+		b. data prodi
+		c. data fakultas
+
+
+?. dynamic text input on anggota form
+	# last try
+	## HTML
+	<!-- modal keanggotaan penelitian -->
+						<div class="modal fade" id="keanggotaanPenelitian{{ i.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Keanggotaan</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form action="" method="POST" enctype='multipart/form-data' id="keanggotaanPenelitianForm">{% csrf_token %}
+											<input type="hidden" name="aksi" value="anggota_penelitian">
+											<input type="hidden" name="pk_penelitian" value="{{ i.pk }}">
+											<div class="form-group" id="formKetua">
+						      					<div class="input-group mb-3">
+						        					<div class="input-group-prepend">
+						          						<span class="input-group-text" id="basic-addon1">Ketua</span>
+						        					</div>
+						        					<input type="text" class="form-control" placeholder="" aria-label="Ketua" aria-describedby="basic-addon1" name="anggota_ketua" value="" required />
+						      					</div>
+						    				</div>
+						    				<hr />
+						    				<div id="anggotaPeneliti"> 
+						    				<!-- <div class="form-group" id="anggotaPeneliti1">
+						    										      					<div class="input-group mb-3">
+						    										        					<div class="input-group-prepend">
+						    										          						<span class="input-group-text" id="basic-addon1">Anggota</span>
+						    										        					</div>
+						    										        					<input type="text" class="form-control" placeholder="" aria-label="Anggota" aria-describedby="basic-addon1" name="anggota_anggota" value="" required />
+						    										        					<a href="javascript:void(0);" class="delAnggotaPenelitian"><button class="btn"><img src="{% static 'icon/png/minus.png' %}" alt=""></button></a>
+						    										      					</div>
+						    										      					<div class="input-group mb-3">
+						    										        					<div class="input-group-prepend">
+						    										          						<span class="input-group-text" id="basic-addon1">Anggota</span>
+						    										        					</div>
+						    										        					<input type="text" class="form-control" placeholder="" aria-label="Anggota" aria-describedby="basic-addon1" name="anggota_anggota" value="" required />
+						    										        					<a href="javascript:void(0);" class="delAnggotaPenelitian"><button class="btn"><img src="{% static 'icon/png/minus.png' %}" alt=""></button></a>
+						    										      					</div>
+						    				</div> -->
+						    				</div>
+						    				<div class="form-group">
+						    					<a href="javascript:void(0);" class="addAnggotaPenelitian"><img src="{% static 'icon/png/plus-2x.png' %}" alt=""></a>
+						    				</div>
+					  						<hr />
+					      					<div class="form-group" align="center">
+					    						<button type="submit" class="btn" id="btnAnggotaPenelitian"><img src="{% static 'icon/png/hard-drive-2x.png' %}" alt=""></button>
+					  						</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- end modal keanggotaan penelitian -->
+
+	## JQuery
+	$(document).ready(function(){
+    var maxField = 10; //Input fields increment limitation
+    var addButton = $('.addAnggotaPenelitian'); //Add button selector
+    var wrapper = $('#keanggotaanPenelitianForm'); //Input field wrapper
+    var fieldHTML = '<div class="form-group"><div class="input-group mb-3"><div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Anggota</span></div><input type="text" class="form-control" placeholder="" aria-label="Anggota" aria-describedby="basic-addon1" name="anggota_anggota" value="" required /><a href="javascript:void(0);" class="delAnggotaPenelitian"><button class="btn"><img src="{% static 'icon/png/minus.png' %}" alt=""></button></a></div></div>'; //New input field html 
+    /*var fieldHTML = '<div class="input-group mb-3"><div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Anggota</span></div><input type="text" class="form-control" placeholder="" aria-label="Anggota" aria-describedby="basic-addon1" name="anggota_anggota" value="" required /><a href="javascript:void(0);" class="delAnggotaPenelitian"><button class="btn"><img src="{% static 'icon/png/minus.png' %}" alt=""></button></a></div>';*/
+    var x = 1; //Initial field counter is 1
+    
+    //Once add button is clicked
+    $(addButton).click(function(){
+        //Check maximum number of input fields
+        if(x < maxField){ 
+            x++; //Increment field counter
+            /*$(wrapper).append(fieldHTML).appendTo('#anggotaPeneliti');*/ //Add field html
+            $(wrapper).append(fieldHTML); //Add field html
+            /*$(fieldHTML).appendTo(wrapper);*/
+        }
+    });
+    
+    //Once remove button is clicked
+    $(wrapper).on('click', '.delAnggotaPenelitian', function(e){
+        e.preventDefault();
+        $(this).parent('div').remove(); //Remove field html
+        x--; //Decrement field counter
+   		});
+	});
+
+
+# fakkk
+<!-- modal keanggotaan penelitian -->
+						<div class="modal fade" id="keanggotaanPenelitian{{ i.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Keanggotaan</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form action="" method="POST" enctype='multipart/form-data' id="keanggotaanPenelitianForm">{% csrf_token %}
+											<input type="hidden" name="aksi" value="anggota_penelitian">
+											<input type="hidden" name="pk_penelitian" value="{{ i.pk }}">
+
+											{% if i.anggotapenelitian_set.count != 0 %}
+											<input type="hidden" name="aksi1" value="update_anggota">
+												{% for k in i.anggotapenelitian_set.all %}
+													{% if k.level == '1' %}
+														<div class="form-group" id="formKetua">
+									      					<div class="input-group mb-3">
+									        					<div class="input-group-prepend">
+									          						<span class="input-group-text" id="basic-addon1">Ketua</span>
+									        					</div>
+									        					<input type="text" class="form-control" placeholder="{{ k.nama }}" aria-label="Ketua" aria-describedby="basic-addon1" name="anggota_ketua" value="{{ k.nama }}" required />
+									        					<input type="hidden" name="pk_ketua" value="{{ k.pk }}">
+									      					</div>
+									    				</div>
+													{% else %}
+														<div class="form-group">
+									    					<div class="input-group mb-3">
+									    						<div class="input-group-prepend">
+									    							<span class="input-group-text" id="basic-addon1">Anggota</span>
+									    						</div>
+									    						<input type="text" class="form-control" placeholder="{{ k.nama }}" aria-label="Anggota" aria-describedby="basic-addon1" name="anggota_anggota" value="{{ k.nama }}" />
+									    						<input type="hidden" name="pk_anggota" value="{{ k.pk }}">
+									    					</div>
+									    				</div>
+													{% endif %}
+												{% endfor %}
+											
+											{% else %}
+											<input type="hidden" name="aksi1" value="add_anggota">
+											<div class="form-group" id="formKetua">
+						      					<div class="input-group mb-3">
+						        					<div class="input-group-prepend">
+						          						<span class="input-group-text" id="basic-addon1">Ketua</span>
+						        					</div>
+						        					<input type="text" class="form-control" placeholder="" aria-label="Ketua" aria-describedby="basic-addon1" name="anggota_ketua" value="" required />
+						      					</div>
+						    				</div>
+						    				<div class="form-group">
+						    					<div class="input-group mb-3">
+						    						<div class="input-group-prepend">
+						    							<span class="input-group-text" id="basic-addon1">Anggota</span>
+						    						</div>
+						    						<input type="text" class="form-control" placeholder="" aria-label="Anggota" aria-describedby="basic-addon1" name="anggota_anggota" value="" />
+						    						<input type="hidden" name="pk_anggota" value="1">
+						    					</div>
+						    				</div>
+						    				<div class="form-group">
+						    					<div class="input-group mb-3">
+						    						<div class="input-group-prepend">
+						    							<span class="input-group-text" id="basic-addon1">Anggota</span>
+						    						</div>
+						    						<input type="text" class="form-control" placeholder="" aria-label="Anggota" aria-describedby="basic-addon1" name="anggota_anggota" value="" />
+						    						<input type="hidden" name="pk_anggota" value="2">
+						    					</div>
+						    				</div>
+						    				<div class="form-group">
+						    					<div class="input-group mb-3">
+						    						<div class="input-group-prepend">
+						    							<span class="input-group-text" id="basic-addon1">Anggota</span>
+						    						</div>
+						    						<input type="text" class="form-control" placeholder="" aria-label="Anggota" aria-describedby="basic-addon1" name="anggota_anggota" value="" />
+						    						<input type="hidden" name="pk_anggota" value="3">
+						    					</div>
+						    				</div>
+											{% endif %}
+											
+					      					<div class="form-group" align="center">
+					    						<button type="submit" class="btn" id="btnAnggotaPenelitian"><img src="{% static 'icon/png/hard-drive-2x.png' %}" alt=""></button>
+					  						</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- end modal keanggotaan penelitian -->
+	
