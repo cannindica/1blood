@@ -1,0 +1,150 @@
+{% extends 'PIKTOR/index.html' %}
+{% load staticfiles %}
+
+{% block navbar %}
+{% if user.is_authenticated %}
+    <!-- Navbar -->
+    <div class="navbar-fixed">
+      <nav class="blue darken-2">
+        <div class="container">
+          <div class="nav-wrapper">
+            <a href="#home" class="brand-logo">Auth</a>
+            <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <li {% if awal %}class="active"{% endif %}><a href="#about">Beranda</a></li>
+              <li><a href="#clients">Penelitian</a></li>
+              <li><a href="#services">Pengabdian</a></li>
+              <li><a href="#portfolio">Statistik</a></li>
+              <li><a class='dropdown-button' href='#' data-target='dropdown2'><i class="material-icons">notifications</i></a></li>
+              <li><a href="#contact">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- SideNav -->
+    <ul class="sidenav" id="mobile-nav">
+      <li {% if awal %}class="active"{% endif %}><a href="#about">Beranda</a></li>
+      <li><a href="#clients">Penelitian</a></li>
+      <li><a href="#services">Pengabdian</a></li>
+      <li><a href="#portfolio">Statistik</a></li>
+      <li><a class='dropdown-button' href='#' data-target='dropdown1'><i class="material-icons">notifications</i></a></li>
+      <li><a href="#contact">Logout</a></li>
+    </ul>
+
+
+    <!-- Dropdown -->
+    <ul id='dropdown1' class='dropdown-content'>
+      <li><a href="#!">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </a></li>
+      <li><a href="#!">two</a></li>
+      <li><a href="#!">three</a></li>
+      <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+      <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+    </ul>
+    <ul id='dropdown2' class='dropdown-content'>
+      <li><a href="#!">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </a></li>
+      <li><a href="#!">two</a></li>
+      <li><a href="#!">three</a></li>
+      <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+      <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+    </ul>
+{% else %}
+    <!-- Navbar -->
+    <div class="navbar-fixed">
+      <nav class="blue darken-2">
+        <div class="container">
+          <div class="nav-wrapper">
+            <a href="#home" class="brand-logo">Logo</a>
+            <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <li {% if awal %}class="active"{% endif %}><a href="#about">Beranda</a></li>
+              <li><a href="#clients">Penelitian</a></li>
+              <li><a href="#services">Pengabdian</a></li>
+              <li><a href="#portfolio">Login</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- SideNav -->
+    <ul class="sidenav" id="mobile-nav">
+      <li {% if awal %}class="active"{% endif %}><a href="#about">Beranda</a></li>
+      <li><a href="#clients">Penelitian</a></li>
+	  <li><a href="#services">Pengabdian</a></li>
+      <li><a href="#portfolio">Login</a></li>
+    </ul>
+
+
+    <!-- Dropdown -->
+    <ul id='dropdown1' class='dropdown-content'>
+      <li><a href="#!">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </a></li>
+      <li><a href="#!">two</a></li>
+      <li><a href="#!">three</a></li>
+      <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+      <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+    </ul>
+{% endif %}
+{% endblock navbar %}
+
+{% block content %}
+    <!-- Contact Us -->
+    <section class="contact grey lighten-3 scrollspy" id="contact">
+      <div class="container">
+        <h3 class="light center grey-text text-darken-3">Contact Us</h3>
+        <div class="row">
+          <canvas id="myChart2" width="1200px;" height="300px;"></canvas>
+        </div>
+      </div>
+    </section>
+{% endblock content %}
+
+<script>
+{% block js %}
+	var endpoint = '/chartPenelitian/'
+	var defaultData = []
+	var labels = [];
+	$.ajax({
+	    method: "GET",
+	    url: endpoint,
+	    success: function(data){
+	        labels = data.labels
+	        defaultData = data.default
+	        setChart()
+	    },
+	    error: function(error_data){
+	        console.log("error")
+	        console.log(error_data)
+	    }
+	})
+
+	function setChart(){
+	    var ctx = document.getElementById("myChart");
+	    var ctx2 = document.getElementById("myChart2");
+	    var myChart = new Chart(ctx2, {
+	    type: 'bar',
+	    data: {
+	        labels: labels,
+	        datasets: [{
+	            label: 'Jumlah',
+	            data: defaultData,
+	            borderWidth: 1
+	        }]
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero:true,
+	                    stacked: true,
+	                    stepSize: 25,
+	                    max: 100,
+	                }
+	            }]
+	        }
+	    }
+	});
+	}
+{% endblock js %}
+</script>

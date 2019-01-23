@@ -1,0 +1,104 @@
+{% extends 'home.html' %}
+{% load staticfiles %}
+
+<!-- <style>
+{% block css %}
+body {
+	font-size: 16px;
+}
+{% endblock css %}
+</style> -->
+
+{% block content %}
+	{% if messages %}   
+	    {% for message in messages %}
+	    <input type="hidden" id="messages_status" value="{{ message.tags }}">
+	    <input type="hidden" id="messages_content" value="{{ message }}">
+	    {% endfor %}
+	{% endif %}
+
+	<section class="banner_area">
+		<div class="banner_inner d-flex align-items-center">
+			<div class="container">
+				<div class="banner_content text-right">
+					<h1>Validasi Data</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<section class="section_gap portfolio_area" id="work">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-6 text-center">
+					<div class="main-title">
+
+						<h3>Data {{ validasi_tipe }}</h3>
+						<hr />
+						<table>
+							<tbody>
+								<tr>
+									<td width="20%">Dosen</td>
+									<td width="2%">:</td>
+									<td width="78%">{{ validasi_instance.dosen }}</td>
+								</tr>
+								<tr>
+									<td width="20%">Judul</td>
+									<td width="2%">:</td>
+									<td width="78%">{{ validasi_instance.judul }}</td>
+								</tr>
+								<tr>
+									<td width="20%">Tahun</td>
+									<td width="2%">:</td>
+									<td width="78%">{{ validasi_instance.tahun }}</td>
+								</tr>
+								<tr>
+									<td width="20%">Lokasi</td>
+									<td width="2%">:</td>
+									<td width="78%">{{ validasi_instance.lokasi }}</td>
+								</tr>
+								<tr>
+									<td width="20%">File</td>
+									<td width="2%">:</td>
+									<td width="78%"><a href="{{ validasi_instance.file.url }}" target="_blank">{{ validasi_instance.file.url }}</a></td>
+								</tr>
+							</tbody>
+						</table><br />
+						<h4>{% if validasi_instance.status == True %}{{ validasi_tipe }} telah divalidasi{% else %}{{ validasi_tipe }} belum divalidasi{% endif %}</h4><br /><br />
+
+						{% if user.validatori %}
+						<form action="" method="POST">{% csrf_token %}
+							{% if validasi_instance.status == False %}
+							<button type="submit" class="btn btn-primary" value="good" name="validation">
+								<img src="{% static 'icon/png/circle-check-2x.png' %}" alt="">
+							</button>
+							<button type="submit" class="btn btn-danger" value="bad" name="validation">
+								<img src="{% static 'icon/png/circle-x-2x.png' %}" alt="">
+							</button>
+							{% else %}
+							<button type="submit" class="btn btn-danger" value="undo" name="validation">
+								<img src="{% static 'icon/png/action-undo-2x.png' %}" alt="">
+							</button>
+							{% endif %}
+						</form>
+						{% endif %}
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock content %}
+
+<script>
+	{% block js %}
+		var messages_status = $('#messages_status').val();
+		var messages_content = $('#messages_content').val();
+		if(messages_status == "success") {
+			alertify.success(messages_content);
+		} else if(messages_status == "error") {
+			alertify.error(messages_content);
+}
+	{% endblock js %}
+</script>
