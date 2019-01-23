@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection and (min-width: 45em)"/>
+    <link rel="stylesheet" href="css/animate.css">
+
+    <!-- MyCSS -->
+    <link rel="stylesheet" href="css/style.css"/>
+
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+
+  <body class="scrollspy">
+
+
+
+    <!-- Navbar -->
+    <div class="navbar-fixed">
+      <nav>
+        <div class="container">
+          <div class="nav-wrapper">
+            <a href="#home" class="brand-logo">LPPM</a>
+            <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <li><a href="#home" class="menu">BERANDA</a></li>
+              <li><a href="#penelitian" class="menu">PENELITIAN</a></li>
+              <li><a href="#services" class="menu">PENGABDIAN</a></li>
+              <li><a href="#portfolio" class="menu ">LOGIN</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- SideNav -->
+    <ul class="sidenav" id="mobile-nav">
+      <li><a href="#home">BERANDA</a></li>
+      <li><a href="#penelitian">PENELITIAN</a></li>
+      <li><a href="#services">PENGABDIAN</a></li>
+      <li><a href="#portfolio">LOGIN</a></li>
+    </ul>
+
+
+
+    <!-- BERANDA -->
+    <div  id="home" class="parallax-container scrollspy">
+      <div class="parallax"><img src="img/portfolio/4.png"></div>
+      <div class=" clients">
+        <div class="row">
+          <div class="col m4 s12 center wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay: "0.5s">
+            <img src="img/clients/logo.png" >
+          </div>
+          <div class="col m8 s12 wow fadeIn" data-wow-duration="1s" data-wow-delay: "1s">  
+            <h3 class="light white-text">Selamat Datang</h3>
+            <h5 class="light white-text">We Are Profesionals</h5>
+            <p class="light white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pretium mattis auctor. Cras vel accumsan massa. Duis maximus eu tellus venenatis ornare. Nunc id iaculis est. Donec ac posuere turpis. Morbi id sem pellentesque, tristique dui in, placerat nisi. Maecenas ut sapien pulvinar velit condimentum hendrerit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- PENELITIAN -->
+    <section id="penelitian" class="about scrollspy">
+      <div class="container">
+        <div class="row">
+          <h3 class="center light grey-text text-darken-3">Statistik Penelitian</h3>
+          <div class="col m6 s12 light">
+            <div class="card-panel wow slideInLeft" data-wow-duration="1s" data-wow-delay: "0.5s">
+                <canvas id="myChart" width="400" height="400"></canvas>
+            </div>
+          </div>
+          <div class="col m6 s12 light wow fadeIn" data-wow-duration="2s" data-wow-delay: "1.5s"">
+            <ul class="collapsible">
+              <li>
+                <div class="collapsible-header"><b>FAKULTAS HUKUM</b></div>
+                <div class="collapsible-body">
+                  <ul class="collection">
+                    <li class="collection-item"><a href=""><span class="badge">10</span>ILMU HUKUM</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header"><b>FAKULTAS EKONOMI</b></div>
+                <div class="collapsible-body">
+                  <ul class="collection">
+                    <li class="collection-item"><a href=""><span class="badge">10</span>MANAJEMEN</a></li>
+                    <li class="collection-item"><a href=""><span class="badge">9</span>AKUNTANSI</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header"><b>FAKULTAS ILMU ADMINISTRASI</b></div>
+                <div class="collapsible-body">
+                  <ul class="collection">
+                    <li class="collection-item"><a href=""><span class="badge">16</span>ILMU ADMINISTRASI NEGARA</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header"><b>FAKULTAS PERTANIAN</b></div>
+                <div class="collapsible-body">
+                  <ul class="collection">
+                    <li class="collection-item"><a href=""><span class="badge">16</span>PETERNAKAN</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header"><b>FAKULTAS TEKNIK</b></div>
+                <div class="collapsible-body">
+                  <ul class="collection">
+                    <li class="collection-item"><a href=""><span class="badge">16</span>TEKNIK SIPIL</a></li>
+                    <li class="collection-item"><a href=""><span class="badge">16</span>TEKNIK INFORMATIKA</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header"><b>FAKULTAS KEGURUAN DAN ILMU PENDIDIKAN</b></div>
+                <div class="collapsible-body">
+                  <ul class="collection">
+                    <li class="collection-item"><a href=""><span class="badge">16</span>PENDIDIKAN BAHASA DAN SASTRA INDONESIA</a></li>
+                    <li class="collection-item"><a href=""><span class="badge">16</span>PENDIDIKAN MATEMATIKA</a></li>
+                    <li class="collection-item"><a href=""><span class="badge">16</span>PENDIDIKAN BAHASA INGGRIS</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- PENGABDIAN -->
+    <section id="services" class="services grey lighten-3 scrollspy">
+      <div class="container">
+        <div class="row">
+          <h3 class="center light grey-text text-darken-3">Statistik Penelitian</h3>
+          <div class="col m6 s12 light">
+            <div class="card-panel wow slideInLeft" data-wow-duration="1s" data-wow-delay: "0.5s">
+                <canvas id="myChart2" width="400" height="400"></canvas>
+            </div>
+          </div>
+          <div class="col m6 s12 light wow fadeIn" data-wow-duration="2s" data-wow-delay: "1.5s"">
+            <ul class="collapsible white">
+              <li>
+                <div class="collapsible-header"><b>FAKULTAS HUKUM</b></div>
+                <div class="collapsible-body">
+                  <ul class="collection">
+                    <li class="collection-item"><a href=""><span class="badge">10</span>ILMU HUKUM</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header"><b>FAKULTAS EKONOMI</b></div>
+                <div class="collapsible-body ">
+                  <ul class="collection">
+                    <li class="collection-item"><a href=""><span class="badge">10</span>MANAJEMEN</a></li>
+                    <li class="collection-item"><a href=""><span class="badge">9</span>AKUNTANSI</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header"><b>FAKULTAS ILMU ADMINISTRASI</b></div>
+                <div class="collapsible-body">
+                  <ul class="collection">
+                    <li class="collection-item"><a href=""><span class="badge">16</span>ILMU ADMINISTRASI NEGARA</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header"><b>FAKULTAS PERTANIAN</b></div>
+                <div class="collapsible-body">
+                  <ul class="collection">
+                    <li class="collection-item"><a href=""><span class="badge">16</span>PETERNAKAN</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header"><b>FAKULTAS TEKNIK</b></div>
+                <div class="collapsible-body">
+                  <ul class="collection">
+                    <li class="collection-item"><a href=""><span class="badge">16</span>TEKNIK SIPIL</a></li>
+                    <li class="collection-item"><a href=""><span class="badge">16</span>TEKNIK INFORMATIKA</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <div class="collapsible-header"><b>FAKULTAS KEGURUAN DAN ILMU PENDIDIKAN</b></div>
+                <div class="collapsible-body">
+                  <ul class="collection">
+                    <li class="collection-item"><a href=""><span class="badge">16</span>PENDIDIKAN BAHASA DAN SASTRA INDONESIA</a></li>
+                    <li class="collection-item"><a href=""><span class="badge">16</span>PENDIDIKAN MATEMATIKA</a></li>
+                    <li class="collection-item"><a href=""><span class="badge">16</span>PENDIDIKAN BAHASA INGGRIS</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="blue darken-4 white-text center">
+      <p class="flow-text">KNTL Developer. Copyright 2019.</p>
+    </footer>
+
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript"src="js/Chart.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <!-- wow.js -->
+    <script>
+    new WOW().init();
+    </script>
+
+    <!-- DOM Materialize -->
+    <script>
+      const sideNav = document.querySelectorAll('.sidenav');
+      M.Sidenav.init(sideNav);
+
+      const parallax = document.querySelectorAll('.parallax');
+      M.Parallax.init(parallax);
+
+      const scroll = document.querySelectorAll('.scrollspy');
+      M.ScrollSpy.init(scroll, {
+        scrollOffset: 50
+      });
+
+      const dropdown = document.querySelectorAll('.dropdown-button');
+      M.Dropdown.init(dropdown,{
+        coverTrigger: false
+      });
+
+      const collapSible = document.querySelectorAll('.collapsible');
+      M.Collapsible.init(collapSible);
+
+
+    </script>
+
+    <script type="text/javascript">
+      $(window).on('scroll',function(){
+        if ($(window).scrollTop()) {
+              $('nav').addClass('blue darken-4');       
+        } else {
+              $('nav').removeClass('blue darken-4'); 
+        }
+      });
+    </script>
+
+    <!-- CHART1 -->
+    <script>
+      var ctx = document.getElementById("myChart").getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+      });
+    </script>
+
+    <!-- CHART2 -->
+    <script>
+      var ctx = document.getElementById("myChart2").getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+      });
+    </script>
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
