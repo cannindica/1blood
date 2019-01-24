@@ -9,6 +9,13 @@
 
     <!-- MyCSS -->
     <link rel="stylesheet" href="css/style.css"/>
+    <style>
+        body {
+            background-image: url(img/bg2.jpg) !important;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+    </style>
 
 
     <!--Let browser know website is optimized for mobile-->
@@ -16,7 +23,40 @@
   </head>
 
   <body>
-    <div class="bg"></div>
+
+    <!-- login form -->
+    <div class="container">
+        <div class="row">
+            <div class="col m2"></div>
+            <div class="col m8">
+                <div class="row card transparent loginrow" style="box-shadow: 0px 0px 0px rgba(0,0,0,0.5);">
+                    <div class="col m6 s12">
+                        <img src="img/clients/logo.png" >    
+                    </div>
+                    <div class="col m6 s12 ">
+                        <ul>
+                            <h4 class="white-text center">Login Form</h4><hr><br>
+                        </ul>
+                        <form action="" class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12 ">
+                                    <input  id="username" type="text" class="validate white-text">
+                                    <label for="username" class="white-text">Username</label>
+                                </div>
+                                <div class="input-field col s12">
+                                  <input id="password" type="password" class="validate white-text">
+                                  <label for="password" class="white-text">Password</label>
+                                </div>
+                                <a href="" ><span class="btn waves-effect waves-light red darken-2 col s12">LOGIN</span></a>
+                                <a href="" ><span class="btn waves-effect waves-light transparent col s12" style="box-shadow: 0px 0px 0px; margin-top: 10px;">BACK</span></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col m2"></div>
+        </div>
+    </div>
 
 
 
