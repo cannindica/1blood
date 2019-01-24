@@ -1,0 +1,86 @@
+nav {
+    background-color:transparent;
+    box-shadow: 0px 0px 0px;
+}
+
+nav ul li a:hover{
+    background-color: #e84c3d;
+}
+
+nav ul li .menu{
+	text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+	font-size: 18px;
+}
+nav ul li.active {
+    background-color: #e84c3d;
+}
+
+
+.parallax-container {
+	height: 660px;
+	margin-top: -65px;
+}
+
+.clients{
+	margin-top: 200px;
+}
+
+.parallax img {
+	max-width: 100px;
+
+}
+
+.modal.bottom-sheet {
+    top: auto;
+    bottom: -100%;
+    margin: 0;
+    width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    will-change: bottom, opacity;
+}
+
+.clients h3,
+.clients h5,
+.clients p {
+	text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.clients img {
+	max-width: 70%;
+	filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.8));
+}
+
+
+section, footer {
+	padding: 20px 0;
+}
+.dropdown-content {
+	width: 250px !important;
+
+}
+
+nav .cari{
+	color: #c62828;
+}
+
+@media only screen and (max-width: 576px){
+	.clients img{
+		max-width: 50%;
+	}
+
+	.clients{
+	margin-top: 80px;
+	}
+
+	.clients h3,
+	.clients h5,
+	.clients p {
+		text-align: center;
+		text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+	}
+
+
+}
+
+/* login */

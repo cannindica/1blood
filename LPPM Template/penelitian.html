@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection and (min-width: 45em)"/>
+    <link rel="stylesheet" href="css/animate.css">
+
+    <!-- MyCSS -->
+    <link rel="stylesheet" href="css/style.css"/>
+
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+
+  <body class="scrollspy">
+
+
+
+    <!-- Navbar -->
+    <div class="navbar-fixed">
+      <nav>
+        <div class="container">
+          <div class="nav-wrapper">
+            <a href="#home" class="brand-logo">LPPM</a>
+            <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <li><a href="#home" class="menu">BERANDA</a></li>
+              <li class="active"><a href="#penelitian" class="menu">PENELITIAN</a></li>
+              <li><a href="#services" class="menu">PENGABDIAN</a></li>
+              <li><a href="#portfolio" class="menu ">LOGIN</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- SideNav -->
+    <ul class="sidenav" id="mobile-nav">
+      <li><a href="#home">BERANDA</a></li>
+      <li><a href="#penelitian">PENELITIAN</a></li>
+      <li><a href="#services">PENGABDIAN</a></li>
+      <li><a href="#portfolio">LOGIN</a></li>
+    </ul>
+
+
+
+
+    <!-- BERANDA -->
+    <div  id="home" class="parallax-container scrollspy">
+      <div class="parallax"><img src="img/bg.jpg"></div>
+      <div class=" clients">
+        <div class="row">
+          <div class="col m4 s12 center wow fadeInBottom" data-wow-duration="0.5s" data-wow-delay: "0.5s">
+            <img src="img/clients/logo.png" >
+          </div>
+          <div class="col m8 s12 wow fadeInLeft" data-wow-duration="1s" data-wow-delay: "1s">  
+            <h3 class="light white-text">DATA PENELITIAN</h3>
+            <h5 class="light white-text">Cari Data Penelitian</h5>
+
+            <!-- pencarian -->
+              <nav class="cari">
+              <div class="nav-wrapper">
+                <form>
+                  <div class="input-field">
+                    <input id="search" type="search" required>
+                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                    <i class="material-icons">close</i>
+                  </div>
+                </form>
+              </div>
+            </nav>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- PENELITIAN -->
+    <section id="penelitian" class="about scrollspy">
+      <div class="container">
+        <div class="row">
+          <h3 class="center light grey-text text-darken-3">Statistik Penelitian</h3>
+          <div class="col s12 light">
+            <div class="card-panel wow slideInLeft" data-wow-duration="1s" data-wow-delay: "0.5s">
+                <canvas id="myChart" width="400" height="100"></canvas>
+            </div>
+          </div>
+          <div class="col s12 light wow fadeIn" data-wow-duration="2s" data-wow-delay: "1.5s"">
+            <div class="card-panel wow slideInLeft" data-wow-duration="1s" data-wow-delay: "0.5s">
+              <table class=" highlight">
+                <thead>
+                  <tr>
+                      <th>JUDUL</th>
+                      <th>TAHUN</th>
+                      <th>LOKASI</th>
+                      <th>DETAIL</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis autem repellendus, culpa,</td>
+                    <td>218</td>
+                    <td>pamekasan</td>
+                    <td><a class="waves-effect waves-light btn-floating modal-trigger blue darken-4" data-target="modal1"><i class="material-icons">zoom_out_map</i></a></td>
+                  </tr>
+                  <tr>
+                    <td>Alan</td>
+                    <td>Jellybean</td>
+                    <td>surabaya jawa timur</td>
+                    <td><a class="waves-effect waves-light btn-floating modal-trigger blue darken-4" data-target="modal1"><i class="material-icons">zoom_out_map</i></a></td>
+                  </tr>
+                  <tr>
+                    <td>Jonathan</td>
+                    <td>Lollipop</td>
+                    <td>$7.00</td>
+                    <td><a class="waves-effect waves-light btn-floating modal-trigger blue darken-4" data-target="modal1"><i class="material-icons">zoom_out_map</i></a></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- pagination -->
+              <div class="container center">
+                <ul class="pagination">
+                  <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                  <li class="active"><a href="#!">1</a></li>
+                  <li class="waves-effect"><a href="#!">2</a></li>
+                  <li class="waves-effect"><a href="#!">3</a></li>
+                  <li class="waves-effect"><a href="#!">4</a></li>
+                  <li class="waves-effect"><a href="#!">5</a></li>
+                  <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal bottom-sheet">
+    <div class="modal-content">
+      <table>
+        <tbody>
+          <tr>
+            <td width="13%">Judul</td>
+            <td width="2%">:</td>
+            <td width="85%">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </td>
+          </tr>
+          <tr>
+            <td width="13%">Abstrak</td>
+            <td width="2%">:</td>
+            <td width="85%">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat similique aspernatur tenetur architecto eligendi, commodi, quasi ipsum, maiores, magnam veniam ratione at repudiandae. Nisi dolorum saepe, nemo tempora, quia a.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat similique aspernatur tenetur architecto eligendi, commodi, quasi ipsum, maiores, magnam veniam ratione at repudiandae. Nisi dolorum saepe, nemo tempora, quia a.Maecenas ut sapien pulvinar velit condimentum hendrerit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt nihil quaerat eos repellendus id deserunt alias cum qui animi accusamus illum molestiae veritatis, nemo quos quae dolores dolore quibusdam culpa. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo nam .Maecenas ut sapien pulvinar velit condimentum hendrerit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt nihil quaerat eos repellendus id deserunt alias cum qui animi accusamus illum molestiae veritatis, nemo quos quae dolores dolore quibusdam culpa.</td>
+          </tr>
+          <tr>
+            <td width="13%">Tahun</td>
+            <td width="2%">:</td>
+            <td width="85%">2018 </td>
+          </tr>
+          <tr>
+            <td width="13%">Lokasi</td>
+            <td width="2%">:</td>
+            <td width="85%">Pamekasan </td>
+          </tr>
+          <tr>
+            <td width="13%">Ketua</td>
+            <td width="2%">:</td>
+            <td width="85%">Bapak Ketua </td>
+          </tr>
+          <tr>
+            <td width="13%">Anggota</td>
+            <td width="2%">:</td>
+            <td width="85%">Anggota<br>Anggota</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
+
+
+    <!-- Footer -->
+    <footer class="blue darken-4 white-text center">
+      <p class="flow-text">KNTL Developer. Copyright 2019.</p>
+    </footer>
+
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript"src="js/Chart.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <!-- wow.js -->
+    <script>
+    new WOW().init();
+    </script>
+
+    <!-- DOM Materialize -->
+    <script>
+
+      const sideNav = document.querySelectorAll('.sidenav');
+      M.Sidenav.init(sideNav);
+
+      const parallax = document.querySelectorAll('.parallax');
+      M.Parallax.init(parallax);
+
+      const scroll = document.querySelectorAll('.scrollspy');
+      M.ScrollSpy.init(scroll, {
+        scrollOffset: 50
+      });
+
+      const dropdown = document.querySelectorAll('.dropdown-button');
+      M.Dropdown.init(dropdown,{
+        coverTrigger: false
+      });
+
+      const collapSible = document.querySelectorAll('.collapsible');
+      M.Collapsible.init(collapSible);
+
+      const modalbtn = document.querySelectorAll('.modal');
+      M.Modal.init(modalbtn);
+
+
+    </script>
+
+    <script type="text/javascript">
+      $(window).on('scroll',function(){
+        if ($(window).scrollTop()) {
+              $('nav').addClass('blue darken-4');       
+        } else {
+              $('nav').removeClass('blue darken-4'); 
+        }
+      });
+    </script>
+
+    <!-- CHART1 -->
+    <script>
+      var ctx = document.getElementById("myChart").getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+      });
+    </script>
+
+    <!-- CHART2 -->
+    <script>
+      var ctx = document.getElementById("myChart2").getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+      });
+    </script>
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
