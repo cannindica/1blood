@@ -2,6 +2,7 @@
 
 nav {
     background-color:transparent;
+    box-shadow: 0 0 0;
     
 }
 
@@ -9,7 +10,7 @@ nav ul li a:hover{
     background-color: #e84c3d;
 }
 
-nav ul li .menu{
+nav ul li.menu{
 	text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 	font-size: 18px;
 }
@@ -59,17 +60,8 @@ section, footer {
 }
 .dropdown-content {
 	width: 250px !important;
-
 }
 
-nav .cari{
-	color: #c62828;
-}
-
-* {
-	margin: 0px;
-	padding: 0px;
-}
 
 .loginrow {
 	margin-top: 140px;

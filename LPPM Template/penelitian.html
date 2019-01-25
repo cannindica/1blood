@@ -53,7 +53,7 @@
       <div class="parallax"><img src="img/bg.jpg"></div>
       <div class=" clients">
         <div class="row">
-          <div class="col m4 s12 center wow fadeInBottom" data-wow-duration="0.5s" data-wow-delay: "0.5s">
+          <div class="col m4 s12 center wow fadeIn" data-wow-duration="1s" data-wow-delay: "1s">
             <img src="img/clients/logo.png" >
           </div>
           <div class="col m8 s12 wow fadeInLeft" data-wow-duration="1s" data-wow-delay: "1s">  
@@ -89,8 +89,8 @@
                 <canvas id="myChart" width="400" height="100"></canvas>
             </div>
           </div>
-          <div class="col s12 light wow fadeIn" data-wow-duration="2s" data-wow-delay: "1.5s"">
-            <div class="card-panel wow slideInLeft" data-wow-duration="1s" data-wow-delay: "0.5s">
+          <div class="col s12 light">
+            <div class="card-panel wow slideInRight" data-wow-duration="1s" data-wow-delay: "1.5s">
               <table class=" highlight">
                 <thead>
                   <tr>
@@ -199,48 +199,8 @@
     <script type="text/javascript"src="js/Chart.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script src="js/wow.min.js"></script>
-    <!-- wow.js -->
-    <script>
-    new WOW().init();
-    </script>
+    <script type="text/javascript" src="js/myjs.js"></script>
 
-    <!-- DOM Materialize -->
-    <script>
-
-      const sideNav = document.querySelectorAll('.sidenav');
-      M.Sidenav.init(sideNav);
-
-      const parallax = document.querySelectorAll('.parallax');
-      M.Parallax.init(parallax);
-
-      const scroll = document.querySelectorAll('.scrollspy');
-      M.ScrollSpy.init(scroll, {
-        scrollOffset: 50
-      });
-
-      const dropdown = document.querySelectorAll('.dropdown-button');
-      M.Dropdown.init(dropdown,{
-        coverTrigger: false
-      });
-
-      const collapSible = document.querySelectorAll('.collapsible');
-      M.Collapsible.init(collapSible);
-
-      const modalbtn = document.querySelectorAll('.modal');
-      M.Modal.init(modalbtn);
-
-
-    </script>
-
-    <script type="text/javascript">
-      $(window).on('scroll',function(){
-        if ($(window).scrollTop()) {
-              $('nav').addClass('blue darken-4');       
-        } else {
-              $('nav').removeClass('blue darken-4'); 
-        }
-      });
-    </script>
 
     <!-- CHART1 -->
     <script>

@@ -9,8 +9,9 @@
 
     <!-- MyCSS -->
     <link rel="stylesheet" href="css/style.css"/>
+
     <style>
-        body {
+        body.bg {
             background-image: url(img/bg2.jpg) !important;
             background-size: cover;
             background-attachment: fixed;
@@ -22,7 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
 
-  <body>
+  <body class="bg">
 
     <!-- login form -->
     <div class="container">
@@ -30,14 +31,15 @@
             <div class="col m2"></div>
             <div class="col m8">
                 <div class="row card transparent loginrow" style="box-shadow: 0px 0px 0px rgba(0,0,0,0.5);">
-                    <div class="col m6 s12">
-                        <img src="img/clients/logo.png" >    
+                    <div class="col m6 s12 ">
+                        <img src="img/clients/logo.png" class="wow slideInLeft" data-wow-duration="1s" data-wow-delay: "1s">    
                     </div>
                     <div class="col m6 s12 ">
                         <ul>
-                            <h4 class="white-text center">Login Form</h4><hr><br>
+                            <h4 class="white-text center wow slideInRight" data-wow-duration="1s" data-wow-delay: "1s">Login Form</h4>
+                            <hr class="wow slideInRight" data-wow-duration="1s" data-wow-delay: "1s"><br>
                         </ul>
-                        <form action="" class="col s12">
+                        <form action="" class="col s12 wow slideInRight" data-wow-duration="1s" data-wow-delay: "1s">
                             <div class="row">
                                 <div class="input-field col s12 ">
                                     <input  id="username" type="text" class="validate white-text">
@@ -66,18 +68,7 @@
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script src="js/wow.min.js"></script>
-    <!-- wow.js -->
-    <script>
-    new WOW().init();
-    </script>
-
-    <!-- DOM Materialize -->
-    <script>
-
-      const parallax = document.querySelectorAll('.parallax');
-      M.Parallax.init(parallax);
-
-    </script>
+    <script type="text/javascript" src="js/myjs.js"></script>
 
 
 
