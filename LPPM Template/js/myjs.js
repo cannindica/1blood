@@ -24,6 +24,11 @@
   const modalbtn = document.querySelectorAll('.modal');
   M.Modal.init(modalbtn);
 
+  const tahun= document.querySelectorAll('.datepicker');
+  M.Datepicker.init(tahun);
+
+
+
   // navbar
   $(window).on('scroll',function(){
     if ($(window).scrollTop()) {
@@ -33,7 +38,9 @@
     }
   });
 
-  // chart1
+  // textarea
+  $('#textarea1').val('');
+  M.textareaAutoResize($('#textarea1'));
 
 
 

@@ -29,8 +29,9 @@
             <ul class="right hide-on-med-and-down">
               <li><a href="#home" class="menu">BERANDA</a></li>
               <li class="active"><a href="#penelitian" class="menu">PENELITIAN</a></li>
-              <li><a href="#services" class="menu">PENGABDIAN</a></li>
-              <li><a href="#portfolio" class="menu ">LOGIN</a></li>
+              <li><a href="#pengabdian" class="menu">PENGABDIAN</a></li>
+              <li><a href="#" class="menu">STATISTIK</a></li>
+              <li><a href="#" class="menu ">LOG OUT</a></li>
             </ul>
           </div>
         </div>
@@ -42,7 +43,8 @@
       <li><a href="#home">BERANDA</a></li>
       <li><a href="#penelitian">PENELITIAN</a></li>
       <li><a href="#services">PENGABDIAN</a></li>
-      <li><a href="#portfolio">LOGIN</a></li>
+      <li><a href="#">STATISTIK</a></li>
+      <li><a href="#">LOG OUT</a></li>
     </ul>
 
 
@@ -78,12 +80,55 @@
       </div>
     </div>
 
-
     <!-- PENELITIAN -->
     <section id="penelitian" class="about scrollspy">
       <div class="container">
         <div class="row">
-          <h3 class="center light grey-text text-darken-3">Statistik Penelitian</h3>
+          <h3 class="center light grey-text text-darken-3">Tambah Penelitian</h3>
+          <div class="col s12 light">
+            <div class="card-panel wow slideInLeft" data-wow-duration="1s" data-wow-delay: "0.5s">
+              <div class="row">
+                <form class="col s12">
+                  <div class="row">
+                    <div class="input-field col s12 tambah">
+                      <input id="judul" type="text" class="validate">
+                      <label for="judul">JUDUL</label>
+                    </div>
+                    <div class="input-field col s12 tambah">
+                      <textarea id="textarea1" class="materialize-textarea"></textarea>
+                      <label for="textarea1">ABSTRAK</label>
+                    </div>
+                    <div class="input-field col s12 tambah">
+                      <input id="tahun" type="text" class="datepicker">
+                      <label for="tahun">TAHUN</label>
+                    </div>
+                    <div class="input-field col s12 tambah">
+                      <input id="lokasi" type="text" class="validate">
+                      <label for="lokasi">LOKASI</label>
+                    </div>
+                    <div class="input-field col s12 tambah">
+                      <input id="ketua" type="text" class="validate">
+                      <label for="ketua">KETUA</label>
+                    </div>
+                    <div class="input-field col s12 tambah">
+                      <textarea id="textarea1" class="materialize-textarea"></textarea>
+                      <label for="textarea1">ANGGOTA</label>
+                    </div>
+                    <div class="file-field input-field col s12 tambah">
+                      <div class="btn red darken-2">
+                        <span>File</span>
+                        <input type="file">
+                      </div>
+                      <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                      </div>
+                    </div>
+                    <button class="btn waves-effect waves-light right col s12 red darken-2" type="submit" name="action" style="margin-top: 20px; margin-bottom: -20px;">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
           <div class="col s12 light">
             <div class="card-panel wow slideInRight" data-wow-duration="1s" data-wow-delay: "1.5s">
               <table class=" highlight">
@@ -101,19 +146,19 @@
                     <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis autem repellendus, culpa,</td>
                     <td>218</td>
                     <td>pamekasan</td>
-                    <td><a class="waves-effect waves-light btn-floating modal-trigger blue darken-4" data-target="modalpenelitian"><i class="material-icons">zoom_out_map</i></a></td>
+                    <td><a class="waves-effect waves-light btn-floating modal-trigger blue darken-4" data-target="modalBpenelitian"><i class="material-icons">zoom_out_map</i></a></td>
                   </tr>
                   <tr>
                     <td>Alan</td>
                     <td>Jellybean</td>
                     <td>surabaya jawa timur</td>
-                    <td><a class="waves-effect waves-light btn-floating modal-trigger blue darken-4" data-target="modalpenelitian"><i class="material-icons">zoom_out_map</i></a></td>
+                    <td><a class="waves-effect waves-light btn-floating modal-trigger blue darken-4" data-target="modalBpenelitian"><i class="material-icons">zoom_out_map</i></a></td>
                   </tr>
                   <tr>
                     <td>Jonathan</td>
                     <td>Lollipop</td>
                     <td>$7.00</td>
-                    <td><a class="waves-effect waves-light btn-floating modal-trigger blue darken-4" data-target="modalpenelitian"><i class="material-icons">zoom_out_map</i></a></td>
+                    <td><a class="waves-effect waves-light btn-floating modal-trigger blue darken-4" data-target="modalBpenelitian"><i class="material-icons">zoom_out_map</i></a></td>
                   </tr>
                 </tbody>
               </table>
@@ -138,8 +183,8 @@
     </section>
 
 
-  <!-- Modal Structure -->
-  <div id="modalpenelitian" class="modal bottom-sheet">
+  <!-- Modal Pnelitian -->
+  <div id="modalBpenelitian" class="modal bottom-sheet">
     <div class="modal-content">
       <table>
         <tbody>
@@ -182,11 +227,45 @@
     </div>
   </div>
 
+  <!-- modal notifikasi -->
+  <!-- notifikasi -->
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large blue modal-trigger " data-target="modalnotif">
+      <i class="large material-icons">notifications</i>
+    </a> 
+  </div>
 
-    <!-- Footer -->
-    <footer class="blue darken-4 white-text center">
-      <p class="flow-text">KNTL Developer. Copyright 2019.</p>
-    </footer>
+  <!-- Modal Structure -->
+  <div id="modalnotif" class="modal bottom-sheet">
+    <h5 class="center">NOTIFIKASI</h5><hr style="width: 200px">
+    <div class="modal-content">
+      <table>
+        <tbody>
+            <tr>
+              <td><a href="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis numquam error reprehenderit, nihil deserunt doloribus ducimus molestiae natus dolore ex, incidunt at possimus quae qui, quisquam libero atque. Aut, temporibus.</a></td>
+            </tr>
+            <tr>
+              <td><a href="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis numquam error reprehenderit, nihil deserunt doloribus ducimus molestiae natus dolore ex, incidunt at possimus quae qui, quisquam libero atque. Aut, temporibus.</a></td>
+            </tr>
+            <tr>
+              <td><a href="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis numquam error reprehenderit, nihil deserunt doloribus ducimus molestiae natus dolore ex, incidunt at possimus quae qui, quisquam libero atque. Aut, temporibus.</a></td>
+            </tr>
+            <tr>
+              <td><a href="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis numquam error reprehenderit, nihil deserunt doloribus ducimus molestiae natus dolore ex, incidunt at possimus quae qui, quisquam libero atque. Aut, temporibus.</a></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+  <footer class="blue darken-4 white-text center">
+    <p class="flow-text">KNTL Developer. Copyright 2019.</p>
+  </footer>
 
 
     <!--JavaScript at end of body for optimized loading-->
@@ -195,91 +274,6 @@
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script src="js/wow.min.js"></script>
     <script type="text/javascript" src="js/myjs.js"></script>
-
-
-    <!-- CHART1 -->
-    <script>
-      var ctx = document.getElementById("myChart").getContext('2d');
-      var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero:true
-                    }
-                }]
-            }
-        }
-      });
-    </script>
-
-    <!-- CHART2 -->
-    <script>
-      var ctx = document.getElementById("myChart2").getContext('2d');
-      var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero:true
-                    }
-                }]
-            }
-        }
-      });
-    </script>
-
-
 
 
 </body>

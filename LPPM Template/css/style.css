@@ -20,7 +20,7 @@ nav ul li.active {
 
 
 .parallax-container {
-	height: 660px;
+	height: 658px;
 	margin-top: -65px;
 }
 
@@ -28,10 +28,6 @@ nav ul li.active {
 	margin-top: 200px;
 }
 
-.parallax img {
-	max-width: 100px;
-
-}
 
 .modal.bottom-sheet {
     top: auto;
@@ -52,8 +48,26 @@ nav ul li.active {
 .clients img {
 	max-width: 70%;
 	filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.8));
+
+}
+.beranda img.circle {
+	height: 200px;
+	width: 200px;
+	filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.8));
+
+}
+.beranda{
+	margin-top: 200px;
 }
 
+.beranda .card-panel {
+	margin-top: 70px;
+
+}
+.beranda .card-panel:hover {
+	background-color: #e84c3d;
+	color : white;
+}
 
 section, footer {
 	padding: 20px 0;
@@ -73,6 +87,9 @@ section, footer {
 	margin-left: 25px;
 }
 
+.btn-floating.btn-large i:hover {
+	background-color: #e84c3d;
+}
 
 
 /*mobile*/
@@ -81,15 +98,42 @@ section, footer {
 		max-width: 50%;
 	}
 
+	.beranda img{
+		max-width: 50%;
+	}
+
+	.beranda{
+	margin-top: 80px;
+	}
+	
+	.beranda .card-panel {
+		margin-top: 10px;
+		height: 100px;
+	}
+
+	.beranda .card-panel h5 {
+		font-size: 16px;
+		margin-top: -5px;
+	}
+
+	.beranda .card-panel i {
+		margin-top: -10px;
+		font-size: 45px;
+	}
+	
 	.clients{
 	margin-top: 80px;
 	}
-
+	
 	.clients h3,
 	.clients h5,
 	.clients p {
 		text-align: center;
 		text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+	}
+
+	.clients h5.beranda-menu  {
+		text-shadow: 0px 0px 0px;
 	}
 
 	.loginrow {
@@ -102,7 +146,17 @@ section, footer {
 		margin-left: 80px;
 	}
 
+	.beranda img.circle {
+		height: 100px;
+		width: 100px;
+		filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.8));
+	}
 
+	.user h5 {
+		font-size: 14px;
+	}
+
+ 	.parallax-container {
+	height: 680px;
 }
-
-/* login */
+ 
