@@ -84,50 +84,58 @@
     <section id="penelitian" class="about scrollspy">
       <div class="container">
         <div class="row">
-          <h3 class="center light grey-text text-darken-3">Tambah Penelitian</h3>
-          <div class="col s12 light">
-            <div class="card-panel wow slideInLeft" data-wow-duration="1s" data-wow-delay: "0.5s">
-              <div class="row">
-                <form class="col s12">
-                  <div class="row">
-                    <div class="input-field col s12 tambah">
-                      <input id="judul" type="text" class="validate">
-                      <label for="judul">JUDUL</label>
-                    </div>
-                    <div class="input-field col s12 tambah">
-                      <textarea id="textarea1" class="materialize-textarea"></textarea>
-                      <label for="textarea1">ABSTRAK</label>
-                    </div>
-                    <div class="input-field col s12 tambah">
-                      <input id="tahun" type="text" class="datepicker">
-                      <label for="tahun">TAHUN</label>
-                    </div>
-                    <div class="input-field col s12 tambah">
-                      <input id="lokasi" type="text" class="validate">
-                      <label for="lokasi">LOKASI</label>
-                    </div>
-                    <div class="input-field col s12 tambah">
-                      <input id="ketua" type="text" class="validate">
-                      <label for="ketua">KETUA</label>
-                    </div>
-                    <div class="input-field col s12 tambah">
-                      <textarea id="textarea1" class="materialize-textarea"></textarea>
-                      <label for="textarea1">ANGGOTA</label>
-                    </div>
-                    <div class="file-field input-field col s12 tambah">
-                      <div class="btn red darken-2">
-                        <span>File</span>
-                        <input type="file">
+          <div class="col s12">
+            <ul class="collapsible">
+              <li>
+                <div class="collapsible-header" ><i class="material-icons">add</i> Tambah Penelitian</div>
+                <div class="collapsible-body">
+                  <ul class="collection">
+                    <li class="collection-item">
+                      <div class="row">
+                        <form class="col s12">
+                          <div class="row">
+                            <div class="input-field col s12 tambah">
+                              <input id="judul" type="text" class="validate">
+                              <label for="judul">JUDUL</label>
+                            </div>
+                            <div class="input-field col s12 tambah">
+                              <textarea id="textarea1" class="materialize-textarea"></textarea>
+                              <label for="textarea1">ABSTRAK</label>
+                            </div>
+                            <div class="input-field col s12 tambah">
+                              <input id="tahun" type="text" class="datepicker">
+                              <label for="tahun">TAHUN</label>
+                            </div>
+                            <div class="input-field col s12 tambah">
+                              <input id="lokasi" type="text" class="validate">
+                              <label for="lokasi">LOKASI</label>
+                            </div>
+                            <div class="input-field col s12 tambah">
+                              <input id="ketua" type="text" class="validate">
+                              <label for="ketua">KETUA</label>
+                            </div>
+                            <div class="input-field col s12 tambah">
+                              <textarea id="textarea1" class="materialize-textarea"></textarea>
+                              <label for="textarea1">ANGGOTA</label>
+                            </div>
+                            <div class="file-field input-field col s12 tambah">
+                              <div class="btn red darken-2">
+                                <span>File</span>
+                                <input type="file">
+                              </div>
+                              <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                              </div>
+                            </div>
+                            <button class="btn waves-effect waves-light right col s12 red darken-2" type="submit" name="action" style="margin-top: 20px; margin-bottom: -20px;">Submit</button>
+                          </div>
+                        </form>
                       </div>
-                      <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text">
-                      </div>
-                    </div>
-                    <button class="btn waves-effect waves-light right col s12 red darken-2" type="submit" name="action" style="margin-top: 20px; margin-bottom: -20px;">Submit</button>
-                  </div>
-                </form>
-              </div>
-            </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
           </div>
           <div class="col s12 light">
             <div class="card-panel wow slideInRight" data-wow-duration="1s" data-wow-delay: "1.5s">
