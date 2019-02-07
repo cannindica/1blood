@@ -1,0 +1,376 @@
+{% extends '1blood-2/index.html' %}
+{% load staticfiles %}
+
+{% if request.user.is_authenticated %}
+{% block style %}
+nav {
+  background-color: #0D47A1;
+}
+{% endblock style %}
+{% endif %}
+
+{% block navbar %}
+
+{% if request.user.is_authenticated %}
+    <div class="navbar-fixed">
+      <nav>
+        <div class="container">
+          <div class="nav-wrapper">
+            <a href="#home" class="brand-logo">LPPM</a>
+            <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <li><a href="{% url 'lppm:home' %}" class="menu">BERANDA</a></li>
+              <li {% if penelitian_list_self %}class="active"{% endif %}><a href="{% url 'lppm:penelitian_list_self' %}" class="menu">PENELITIAN</a></li>
+              <li {% if pengabdian_list_self %}class="active"{% endif %}><a href="{% url 'lppm:pengabdian_list_self' %}" class="menu">PENGABDIAN</a></li>
+              <li {% if statistik %}class="active"{% endif %}><a href="{% url 'lppm:statistik' %}" class="menu">STATISTIK</a></li>
+              <li><a href="{% url 'lppm:logout' %}" class="menu ">LOG OUT</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- SideNav -->
+    <ul class="sidenav" id="mobile-nav">
+      <li><a href="{% url 'lppm:home' %}">BERANDA</a></li>
+      <li {% if penelitian_list_self %}class="active"{% endif %}><a href="{% url 'lppm:penelitian_list_self' %}">PENELITIAN</a></li>
+      <li {% if pengabdian_list_self %}class="active"{% endif %}><a href="{% url 'lppm:pengabdian_list_self' %}">PENGABDIAN</a></li>
+      <li {% if statistik %}class="active"{% endif %}><a href="{% url 'lppm:statistik' %}">STATISTIK</a></li>
+      <li><a href="{% url 'lppm:logout' %}">LOG OUT</a></li>
+    </ul>
+{% else %}
+<!-- Navbar -->
+    <div class="navbar-fixed">
+      <nav>
+        <div class="container">
+          <div class="nav-wrapper">
+            <a href="#home" class="brand-logo">LPPM</a>
+            <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <li><a href="{% url 'lppm:awal' %}" class="menu">BERANDA</a></li>
+              <li><a href="{% url 'lppm:awal' %}" class="menu">PENELITIAN</a></li>
+              <li><a href="{% url 'lppm:awal' %}" class="menu">PENGABDIAN</a></li>
+              <li><a href="{% url 'lppm:masuk' %}" class="menu ">LOGIN</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- SideNav -->
+    <ul class="sidenav" id="mobile-nav">
+      <li><a href="{% url 'lppm:awal' %}">BERANDA</a></li>
+      <li><a href="{% url 'lppm:awal' %}">PENELITIAN</a></li>
+      <li><a href="{% url 'lppm:awal' %}">PENGABDIAN</a></li>
+      <li><a href="{% url 'lppm:masuk' %}">LOGIN</a></li>
+    </ul>
+{% endif %}
+{% endblock navbar %}
+
+{% block content %}
+    <input type="hidden" id="prodi_chart" value="{{ prodi.prodi_nama }}">
+    <!-- BERANDA -->
+    <div  id="home" class="parallax-container scrollspy">
+      <div class="parallax"><img src="{% static '1blood-2/img/bg.jpg' %}"></div>
+      <div class=" clients">
+        <div class="row">
+          <div class="col m4 s12 center wow fadeIn" data-wow-duration="1s" data-wow-delay: "1s">
+            <img src="{% static '1blood-2/img/clients/logo.png' %}" >
+          </div>
+          <div class="col m8 s12 wow fadeInLeft" data-wow-duration="1s" data-wow-delay: "1s">  
+            <h3 class="light white-text">DATA {% if isi == 'penelitian' %} PENELITIAN {% elif isi == 'pengabdian' %} ABDIMAS {% endif %} PRODI {{ prodi.prodi_nama }}</h3>
+            <h5 class="light white-text">Cari Data Penelitian</h5>
+
+            <!-- pencarian -->
+              <nav class="cari">
+              <div class="nav-wrapper">
+                <form method="GET">
+                  <div class="input-field">
+                    <input id="search" name="q" value="{{ request.GET.q }}" type="search" required>
+                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                    <i class="material-icons">close</i>
+                  </div>
+                </form>
+              </div>
+            </nav>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- PENELITIAN -->
+    <section id="penelitian" class="about scrollspy">
+      <div class="container">
+        <div class="row">
+          <h3 class="center light grey-text text-darken-3">Statistik</h3>
+          <div class="col s12 light">
+            <div class="card-panel wow slideInLeft" data-wow-duration="1s" data-wow-delay: "0.5s">
+                <canvas id="myChart" width="400" height="100"></canvas>
+            </div>
+          </div>
+          <div class="col s12 light">
+            <div class="card-panel wow slideInRight" data-wow-duration="1s" data-wow-delay: "1.5s">
+              <table class=" highlight">
+                <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>JUDUL</th>
+                      <th>TAHUN</th>
+                      <th>LOKASI</th>
+                      <th>DETAIL</th>
+                  </tr>
+                </thead>
+
+                <tbody> 
+
+                  {% if penelitian_list1 %}
+                
+                  {% for i in penelitian_list1 %}
+                    <tr>
+                    <td>{{ forloop.counter0|add:penelitian_list1.start_index }}</td>
+                    <td>{{ i.judul }}</td>
+                    <td>{{ i.tahun }}</td>
+                    <td>{{ i.lokasi }}</td>
+                    <td><a class="waves-effect waves-light btn-floating modal-trigger blue darken-4" data-target="modal{{ i.pk }}"><i class="material-icons">zoom_out_map</i></a></td>
+                    </tr>
+                  {% endfor %}
+
+                  {% else %}
+                    <tr>
+                    <td><td>NO DATA</td></td>
+                    </tr>
+                  {% endif %}
+  
+                
+                </tbody>
+              </table>
+
+              <!-- pagination -->
+              {% if penelitian_list1.has_other_pages %}
+              <div class="container center">
+                <ul class="pagination">
+                  {% if penelitian_list1.has_previous %}
+                    <li><a href="?page={{ penelitian_list1.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+                  {% else %}
+                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                  {% endif %}
+                  {% for i in penelitian_list1.paginator.page_range %}
+                    {% if penelitian_list1.number == i %}
+                      <li class="active">{{ i }}</li>
+                    {% else %}
+                      <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                  {% endfor %}
+                  {% if penelitian_list1.has_next %}
+                    <li><a href="?page={{ penelitian_list1.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+                  {% else %}
+                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                  {% endif %}
+                </ul>
+              </div>
+              {% endif %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    {% for l in penelitian_list1 %}
+    <!-- Modal Structure -->
+    <div id="modal{{ l.pk }}" class="modal bottom-sheet">
+      <div class="modal-content">
+        <table>
+                        <tbody>
+                          <tr>
+                            <td width="13%">Judul</td>
+                            <td width="2%">:</td>
+                            <td width="85%">{{ l.judul }}</td>
+                          </tr>
+                          <tr>
+                            <td width="13%">Abstrak</td>
+                            <td width="2%">:</td>
+                            <td width="85%">{{ l.abstrak }}</td>
+                          </tr>
+                          <tr>
+                            <td width="13%">Tahun</td>
+                            <td width="2%">:</td>
+                            <td width="85%">{{ l.tahun }}</td>
+                          </tr>
+                          <tr>
+                            <td width="13%">Lokasi</td>
+                            <td width="2%">:</td>
+                            <td width="85%">{{ l.lokasi }}</td>
+                          </tr>
+                          <tr>
+                            <td width="13%">Ketua</td>
+                            <td width="2%">:</td>
+                            <td width="85%">
+                              {% for j in l.anggotapenelitian_set.all %}
+                                {% if j.level == '1' %}
+                                  {{ j.nama }}
+                                {% endif %}
+                              {% endfor %}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td width="13%">Anggota</td>
+                            <td width="2%">:</td>
+                            <td width="85%">
+                              {% for k in l.anggotapenelitian_set.all %}
+                                {% if k.level == '2' %}
+                                {{ k.nama }} <br />
+                                {% endif %}
+                              {% endfor %}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="modal-footer">
+                      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                    </div>
+                  </div>
+{% endfor %}
+{% endblock content %}
+
+
+{% block chart_penelitian %}
+    {% if isi == 'penelitian' %}
+    <!-- CHART1 -->
+    <script>
+      var endpoint = '/chartPenelitianProdi/'
+      var defaultData = []
+      var labels = [];
+      var faka = $("#prodi_chart").val();
+      $.ajax({
+          method: "GET",
+          url: endpoint,
+          data: {'faka': faka},
+          success: function(data){
+              labels = data.labels
+              defaultData = data.default
+              console.log(data.faka)
+              setChart1()
+          },
+          error: function(error_data){
+              console.log("error")
+              console.log(error_data)
+          }
+      })
+
+      function setChart1(){
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: labels,
+              datasets: [{
+                  label: '# Jumlah',
+                  data: defaultData,
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)'
+                  ],
+                  borderColor: [
+                      'rgba(255,99,132,1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)'
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero:true,
+                          stacked: true,
+                          stepSize: 25,
+                          max: 100,
+                      }
+                  }]
+              }
+          }
+        });
+      }
+    </script>
+
+    {% elif isi == 'pengabdian' %}
+
+    <!-- CHART2 -->
+    <script>
+        var endpoint2 = '/chartPengabdianProdi/'
+        var defaultData2 = []
+        var labels2 = [];
+        var faka = $("#prodi_chart").val()
+        $.ajax({
+            method: "GET",
+            url: endpoint2,
+            data: {'faka': faka},
+            success: function(data){
+                labels2 = data.labels
+                defaultData2 = data.default
+                setChart2()
+            },
+            error: function(error_data){
+                console.log("error")
+                console.log(error_data)
+            }
+        })
+
+        function setChart2(){
+          var ctx = document.getElementById("myChart").getContext('2d');
+          var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: labels2,
+              datasets: [{
+                  label: '# Jumlah',
+                  data: defaultData2,
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)'
+                  ],
+                  borderColor: [
+                      'rgba(255,99,132,1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)'
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero:true,
+                          stacked: true,
+                          stepSize: 25,
+                          max: 100,
+                      }
+                  }]
+              }
+          }
+        });
+        }
+    </script>
+  {% endif %}
+{% endblock chart_penelitian %}

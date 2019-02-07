@@ -1,0 +1,101 @@
+{% extends '1blood-2/penelitian_self.html' %}
+{% load staticfiles %}
+
+
+{% block navbar %}
+    <!-- Navbar -->
+    <div class="navbar-fixed">
+      <nav>
+        <div class="container">
+          <div class="nav-wrapper">
+            <a href="#home" class="brand-logo">LPPM</a>
+            <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <li><a href="{% url 'lppm:logout' %}" class="menu ">LOG OUT</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- SideNav -->
+    <ul class="sidenav" id="mobile-nav">
+      <li><a href="{% url 'lppm:logout' %}">LOG OUT</a></li>
+    </ul>
+{% endblock navbar %}
+
+{% block content %}
+    <!-- BERANDA -->
+    <div  id="home" class="parallax-container scrollspy">
+      <div class="parallax"><img src="{% static '1blood-2/img/bg.jpg' %}" style="max-width: 100px;"></div>
+      <div class=" beranda">
+        <div class="row">
+          <div class="col m4 s12 center user wow fadeInLeft" data-wow-duration="1s" data-wow-delay: "1s">
+            <h5 class="light white-text">Welcome</h5>
+			<img class="circle " src="{{ user.dosen.foto.url }}" alt="Error" >
+            <h5 class="light white-text">{{ user.first_name }} </h5>
+          </div>
+          <div class="col m8 s12 wow fadeInRight" data-wow-duration="1s" data-wow-delay: "1s">  
+            <div class="container">
+              <div class="row">
+              	<a href="{% url 'lppm:penelitian_list_self' %}">
+	                <div class="col m4 s12">
+	                  <div class="card-panel center ">
+	                    <i class="material-icons medium">pageview</i>
+	                    <h5>PENELITIAN</h5>
+	                  </div>
+	                </div>
+                </a>
+                <a href="{% url 'lppm:pengabdian_list_self' %}">
+	                <div class="col m4 s12">
+	                  <div class="card-panel center ">
+	                    <i class="material-icons medium">people</i>
+	                    <h5>PENGABDIAN</h5>
+	                  </div>
+	                </div>
+                </a>
+                <a href="{% url 'lppm:statistik' %}">
+	                <div class="col m4 s12">
+	                  <div class="card-panel center ">
+	                    <i class="material-icons medium">show_chart</i>
+	                    <h5>STATISTIK</h5>
+	                  </div>
+	                </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- notifikasi -->
+    <div class="fixed-action-btn">
+      <a class="btn-floating btn-large blue modal-trigger " data-target="modalnotif">
+        <i class="large material-icons">notifications</i>
+      </a>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="modalnotif" class="modal bottom-sheet">
+      <h5 class="center">NOTIFIKASI</h5><hr style="width: 200px">
+      <div class="modal-content">
+        <table>
+          <tbody>
+            {% for i in user.notifications.all %}
+            <tr>
+              <td>
+                <a href="{% url 'lppm:validasi' pk=i.pk %}" {% if i.unread == False %}style="color: green;"{% endif %}>
+                  {{ i.actor.dosen }} {{ i.verb }}. <small>{{ i.timesince }}</small>
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+      </div>
+    </div>
+{% endblock content %}

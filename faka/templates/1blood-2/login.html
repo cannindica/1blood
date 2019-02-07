@@ -1,0 +1,141 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{% static '1blood-2/css/materialize.min.css' %}"  media="screen,projection and (min-width: 45em)"/>
+    <link rel="stylesheet" href="{% static '1blood-2/css/animate.css' %}">
+
+    <!-- MyCSS -->
+    <link rel="stylesheet" href="{% static '1blood-2/css/style.css' %}"/>
+    <style>
+        body {
+            background-image: url({% static '1blood-2/img/bg2.jpg'%})!important;
+            background-size: cover;
+        }
+    </style>
+
+    <!-- alertify -->
+    <link href="{% static 'alertify/css/alertify.min.css' %}" rel="stylesheet"> 
+    <link href="{% static 'alertify/css/themes/default.min.css' %}" rel="stylesheet">
+
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+
+  <body>
+
+    {% if messages %}   
+      {% for message in messages %}
+        <input type="hidden" id="messages_status" value="{{ message.tags }}">
+        <input type="hidden" id="messages_content" value="{{ message }}">
+      {% endfor %}
+    {% endif %}
+
+    <!-- login form -->
+    <div class="container">
+        <div class="row">
+            <div class="col m2"></div>
+            <div class="col m8">
+                <div class="row card transparent loginrow" style="box-shadow: 0px 0px 0px rgba(0,0,0,0.5);">
+                    <div class="col m6 s12">
+                        <img src="{% static '1blood-2/img/clients/logo.png' %}" class="wow slideInLeft" data-wow-duration="1s" data-wow-delay: "1s">    
+                    </div>
+                    <div class="col m6 s12 ">
+                        <ul>
+                            <h4 class="white-text center wow slideInRight" data-wow-duration="1s" data-wow-delay: "1s">Login Form</h4>
+                            <hr class="wow slideInRight" data-wow-duration="1s" data-wow-delay: "1s"><br>
+                        </ul>
+                        <form action="" class="col s12 wow slideInRight" data-wow-duration="1s" data-wow-delay: "1s" method="POST">{% csrf_token %}
+                            <div class="row">
+                                <div class="input-field col s12 ">
+                                    <input  id="username" type="text" name="username" class="validate white-text" required>
+                                    <label for="username" class="white-text">Username</label>
+                                </div>
+                                <div class="input-field col s12">
+                                  <input id="password" type="password" name="password" class="validate white-text" required>
+                                  <label for="password" class="white-text">Password</label>
+                                </div>
+                                <button type="submit" class="btn waves-effect waves-light red darken-2 col s12">LOGIN</button>
+                                <!-- <button href="{% url 'lppm:awal' %}" class="btn waves-effect waves-light transparent col s12" style="box-shadow: 0px 0px 0px; margin-top: 10px;">BACK</button> -->
+                                <a href="{% url 'lppm:awal' %}"><span  class="btn waves-effect waves-light transparent col s12" style="box-shadow: 0px 0px 0px; margin-top: 10px;">back</span></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col m2"></div>
+        </div>
+    </div>
+
+
+
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="{% static '1blood-2/js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static '1blood-2/js/materialize.min.js' %}"></script>
+    <script src="{% static '1blood-2/js/wow.min.js' %}"></script>
+    <script type="text/javascript" src="{% static '1blood-2/js/myjs.js' %}"></script>
+    <!-- wow.js -->
+    <script>
+    new WOW().init();
+    </script>
+
+    <!-- DOM Materialize -->
+    <script>
+
+      const parallax = document.querySelectorAll('.parallax');
+      M.Parallax.init(parallax);
+
+    </script>
+    
+    <!-- alertify js -->
+    <script src="{% static 'alertify/alertify.min.js' %}"></script>
+    <script>
+        var messages_status = $('#messages_status').val();
+        var messages_content = $('#messages_content').val();
+        if(messages_status == "success") {
+            alertify.success(messages_content);
+        } else if(messages_status == "error") {
+            alertify.error(messages_content);
+        }
+        console.log(messages_status);
+        console.log(messages_content);
+    </script>
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
