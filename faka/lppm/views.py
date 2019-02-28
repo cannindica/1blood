@@ -467,14 +467,14 @@ def penelitian_list(request, nama=None):
 		prodi = get_object_or_404(Prodi, prodi_nama=nama)
 	except:
 		prodi = ""
-	penelitian_list = Penelitian.objects.filter(dosen__prodi=prodi, status=True)
+	penelitian_list = Penelitian.objects.filter(dosen__prodi=prodi, status=True).order_by('-id')
 	query = request.GET.get('q')
 	if query:
 		penelitian_list = penelitian_list.filter(
 			Q(judul__icontains=query) |
 			Q(tahun=query)
 		).distinct()
-	paginator = Paginator(penelitian_list, 1) # Show 25 contacts per page
+	paginator = Paginator(penelitian_list, 10) # Show 25 contacts per page
 	page = request.GET.get('page')
 	penelitian_list1 = paginator.get_page(page)
 	context = {
@@ -491,7 +491,7 @@ def pengabdian_list(request, nama=None):
 		prodi = get_object_or_404(Prodi, prodi_nama=nama)
 	except:
 		prodi = ""
-	penelitian_list = Pengabdian.objects.filter(dosen__prodi=prodi, status=True)
+	penelitian_list = Pengabdian.objects.filter(dosen__prodi=prodi, status=True).order_by('-id')
 	query = request.GET.get('q')
 	if query:
 		penelitian_list = penelitian_list.filter(

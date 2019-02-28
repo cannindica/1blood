@@ -253,3 +253,6 @@ How to do it:
 
 
 ################### WORK ON ###############################
+1. css on validasi.html
+2. P/P detail.html
+3. upgrade bell modal

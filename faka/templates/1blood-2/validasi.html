@@ -5,136 +5,140 @@
 
 <style>
 {% block style %}
-nav {
-	background-color: #0D47A1;
-}
+  nav {
+  	background-color: #0D47A1;
+  }
 {% endblock style %}
 </style>
 
 
 {% block content %}
 
-<section class="about scrollspy">
-	<div class="container">
-		<div class="row">
-			<div class="col s12">
-				<h3>Validasi {{ validasi_tipe }}</h3>
-				
+  <section class="about scrollspy">
+	  <div class="container">
+	    <div class="row">
+		    <div class="col s12">
+			    <h3>Validasi {{ validasi_tipe }}</h3>
+          <table>
+            <tbody>
+              <tr>
+                <td width="13%">Dosen</td>
+                <td width="2%">:</td>
+                <td width="85%">{{ validasi_instance.dosen }}</td>
+              </tr>
+              <tr>
+                <td width="13%">Judul</td>
+                <td width="2%">:</td>
+                <td width="85%">{{ validasi_instance.judul }}</td>
+              </tr>
+              <tr>
+                <td width="13%">Abstrak</td>
+                <td width="2%">:</td>
+                <td width="85%">{{ validasi_instance.abstrak }}</td>
+              </tr>
+              <tr>
+                <td width="13%">Tahun</td>
+                <td width="2%">:</td>
+                <td width="85%">{{ validasi_instance.tahun }}</td>
+              </tr>
+              <tr>
+                <td width="13%">Lokasi</td>
+                <td width="2%">:</td>
+                <td width="85%">{{ validasi_instance.lokasi }}</td>
+              </tr>
+              <tr>
+                <td width="13%">Ketua</td>
+                <td width="2%">:</td>
+                <td width="85%">
+                {% if validasi_tipe == 'Penelitian' %}
+                  {% for j in validasi_instance.anggotapenelitian_set.all %}
+                    {% if j.level == '1' %}
+                      {{ j.nama }}
+                    {% endif %}
+                  {% endfor %}
+                {% elif validasi_tipe == 'Pengabdian' %}
+                  {% for j in validasi_instance.anggotapengabdian_set.all %}
+                    {% if j.level == '1' %}
+                      {{ j.nama }}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <td width="13%">Anggota</td>
+                <td width="2%">:</td>
+                <td width="85%">
+                {% if validasi_tipe == 'Penelitian' %}
+                  {% for k in validasi_instance.anggotapenelitian_set.all %}
+                    {% if k.level == '2' %}
+                      {{ k.nama }} <br />
+                    {% endif %}
+                  {% endfor %}
+                {% elif validasi_tipe == 'Pengabdian' %}
+                  {% for k in validasi_instance.anggotapengabdian_set.all %}
+                    {% if k.level == '2' %}
+                      {{ k.nama }} <br />
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <td width="13%">File</td>
+                <td width="2%">:</td>
+                <td width="85%"><a href="{{ validasi_instance.file.url }}" target="_blank">{{ validasi_instance.file.url }}</a></td>
+              </tr>
+            </tbody>
+          </table>
+				  <br /><br />
+			  </div>
+		  </div>
 
-
-
- <table>
-                        <tbody>
-                          <tr>
-                            <td width="13%">Dosen</td>
-                            <td width="2%">:</td>
-                            <td width="85%">{{ validasi_instance.dosen }}</td>
-                          </tr>
-                          <tr>
-                            <td width="13%">Judul</td>
-                            <td width="2%">:</td>
-                            <td width="85%">{{ validasi_instance.judul }}</td>
-                          </tr>
-                          <tr>
-                            <td width="13%">Abstrak</td>
-                            <td width="2%">:</td>
-                            <td width="85%">{{ validasi_instance.abstrak }}</td>
-                          </tr>
-                          <tr>
-                            <td width="13%">Tahun</td>
-                            <td width="2%">:</td>
-                            <td width="85%">{{ validasi_instance.tahun }}</td>
-                          </tr>
-                          <tr>
-                            <td width="13%">Lokasi</td>
-                            <td width="2%">:</td>
-                            <td width="85%">{{ validasi_instance.lokasi }}</td>
-                          </tr>
-                          <tr>
-                            <td width="13%">Ketua</td>
-                            <td width="2%">:</td>
-                            <td width="85%">
-                              {% for j in validasi_instance.anggotapenelitian_set.all %}
-                                {% if j.level == '1' %}
-                                  {{ j.nama }}
-                                {% endif %}
-                              {% endfor %}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td width="13%">Anggota</td>
-                            <td width="2%">:</td>
-                            <td width="85%">
-                              {% for k in validasi_instance.anggotapenelitian_set.all %}
-                                {% if k.level == '2' %}
-                                {{ k.nama }} <br />
-                                {% endif %}
-                              {% endfor %}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td width="13%">File</td>
-                            <td width="2%">:</td>
-                            <td width="85%"><a href="{{ validasi_instance.file.url }}" target="_blank">{{ validasi_instance.file.url }}</a></td>
-                          </tr>
-                        </tbody>
-                      </table>
-
-				<br /><br />
-				
-
-			</div>
-		</div>
-
-    <div class="row"><h4>{% if validasi_instance.status == True %}{{ validasi_tipe }} telah divalidasi{% else %}{{ validasi_tipe }} belum divalidasi{% endif %}</h4></div>
+      <div class="row"><h4>{% if validasi_instance.status == True %}{{ validasi_tipe }} telah divalidasi{% else %}{{ validasi_tipe }} belum divalidasi{% endif %}</h4></div>
     
-    {% if user.validatori %}
-    <div class="row">
-      <form action="" method="POST">{% csrf_token %}
-        {% if validasi_instance.status == False %}
-      <div class="col s4"><button type="submit" value="good" name="validation"><i class="material-icons">check</i></button></div><div class="col s4"><button type="submit" value="bad" name="validation"><i class="material-icons">close</i></button></div>
-        {% else %}
-      <div class="col s4"><button type="submit" value="undo" name="validation"><i class="material-icons">undo</i></button></div>
-        {% endif %}
-      </form>
-    </div>
-    {% endif %}
-
-	</div>
-</section>
-
-
-    <!-- notifikasi -->
-    <div class="fixed-action-btn">
-      <a class="btn-floating btn-large blue modal-trigger " data-target="modalnotif">
-        <i class="large material-icons">notifications</i>
-      </a>
-    </div>
-
-    <!-- Modal Structure -->
-    <div id="modalnotif" class="modal bottom-sheet">
-      <h5 class="center">NOTIFIKASI</h5><hr style="width: 200px">
-      <div class="modal-content">
-        <table>
-          <tbody>
-            {% for i in user.notifications.all %}
-            <tr>
-              <td>
-                <a href="{% url 'lppm:validasi' pk=i.pk %}" {% if i.unread == False %}style="color: green;"{% endif %}>
-                  {{ i.actor.dosen }} {{ i.verb }}. <small>{{ i.timesince }}</small>
-                </a>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+      {% if user.validatori %}
+      <div class="row">
+        <form action="" method="POST">{% csrf_token %}
+          {% if validasi_instance.status == False %}
+          <div class="col s4"><button type="submit" value="good" name="validation"><i class="material-icons">check</i></button></div><div class="col s4"><button type="submit" value="bad" name="validation"><i class="material-icons">close</i></button></div>
+          {% else %}
+          <div class="col s4"><button type="submit" value="undo" name="validation"><i class="material-icons">undo</i></button></div>
+          {% endif %}
+        </form>
       </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-      </div>
+      {% endif %}
+	  </div>
+  </section>
+
+  <!-- notifikasi -->
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large blue modal-trigger " data-target="modalnotif">
+      <i class="large material-icons">notifications</i>
+    </a>
+  </div>
+
+  <!-- Modal Structure -->
+  <div id="modalnotif" class="modal bottom-sheet">
+    <h5 class="center">NOTIFIKASI</h5><hr style="width: 200px">
+    <div class="modal-content">
+      <table>
+        <tbody>
+        {% for i in user.notifications.all %}
+          <tr>
+            <td>
+              <a href="{% url 'lppm:validasi' pk=i.pk %}" {% if i.unread == False %}style="color: green;"{% endif %}>
+                {{ i.actor.dosen }} {{ i.verb }}. <small>{{ i.timesince }}</small>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
     </div>
-
- 
-
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
 
 {% endblock content %}

@@ -4,35 +4,33 @@
 
 
 {% block navbar %}
-
-    <!-- Navbar -->
-    <div class="navbar-fixed">
-      <nav>
-        <div class="container">
-          <div class="nav-wrapper">
-            <a href="#home" class="brand-logo">LPPM</a>
-            <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <ul class="right hide-on-med-and-down">
-              <li><a href="{% url 'lppm:home' %}" class="menu">BERANDA</a></li>
-              <li {% if penelitian_list_self %}class="active"{% endif %}><a href="{% url 'lppm:penelitian_list_self' %}" class="menu">PENELITIAN</a></li>
-              <li {% if pengabdian_list_self %}class="active"{% endif %}><a href="{% url 'lppm:pengabdian_list_self' %}" class="menu">PENGABDIAN</a></li>
-              <li {% if statistik %}class="active"{% endif %}><a href="{% url 'lppm:statistik' %}" class="menu">STATISTIK</a></li>
-              <li><a href="{% url 'lppm:logout' %}" class="menu ">LOG OUT</a></li>
-            </ul>
-          </div>
+  <!-- Navbar -->
+  <div class="navbar-fixed">
+    <nav>
+      <div class="container">
+        <div class="nav-wrapper">
+          <a href="#home" class="brand-logo">LPPM</a>
+          <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="{% url 'lppm:home' %}" class="menu">BERANDA</a></li>
+            <li {% if penelitian_list_self %}class="active"{% endif %}><a href="{% url 'lppm:penelitian_list_self' %}" class="menu">PENELITIAN</a></li>
+            <li {% if pengabdian_list_self %}class="active"{% endif %}><a href="{% url 'lppm:pengabdian_list_self' %}" class="menu">PENGABDIAN</a></li>
+            <li {% if statistik %}class="active"{% endif %}><a href="{% url 'lppm:statistik' %}" class="menu">STATISTIK</a></li>
+            <li><a href="{% url 'lppm:logout' %}" class="menu ">LOG OUT</a></li>
+          </ul>
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
+  </div>
 
-    <!-- SideNav -->
-    <ul class="sidenav" id="mobile-nav">
-      <li><a href="{% url 'lppm:home' %}">BERANDA</a></li>
-      <li {% if penelitian_list_self %}class="active"{% endif %}><a href="{% url 'lppm:penelitian_list_self' %}">PENELITIAN</a></li>
-      <li {% if pengabdian_list_self %}class="active"{% endif %}><a href="{% url 'lppm:pengabdian_list_self' %}">PENGABDIAN</a></li>
-      <li {% if statistik %}class="active"{% endif %}><a href="{% url 'lppm:statistik' %}">STATISTIK</a></li>
-      <li><a href="{% url 'lppm:logout' %}">LOG OUT</a></li>
-    </ul>
-
+  <!-- SideNav -->
+  <ul class="sidenav" id="mobile-nav">
+    <li><a href="{% url 'lppm:home' %}">BERANDA</a></li>
+    <li {% if penelitian_list_self %}class="active"{% endif %}><a href="{% url 'lppm:penelitian_list_self' %}">PENELITIAN</a></li>
+    <li {% if pengabdian_list_self %}class="active"{% endif %}><a href="{% url 'lppm:pengabdian_list_self' %}">PENGABDIAN</a></li>
+    <li {% if statistik %}class="active"{% endif %}><a href="{% url 'lppm:statistik' %}">STATISTIK</a></li>
+    <li><a href="{% url 'lppm:logout' %}">LOG OUT</a></li>
+  </ul>
 {% endblock navbar %}
 
 
@@ -41,228 +39,220 @@
 {% if penelitian_list_self %}
 
   <!-- BERANDA -->
-    <div  id="home" class="parallax-container scrollspy">
-      <div class="parallax"><img src="{% static '1blood-2/img/bg.jpg' %}"></div>
-        <div class=" clients">
-          <div class="row">
-            <div class="col m4 s12 center wow fadeIn" data-wow-duration="1s" data-wow-delay: "1s">
-              <img src="{% static '1blood-2/img/clients/logo.png' %}" >
-            </div>
-            <div class="col m8 s12 wow fadeInLeft" data-wow-duration="1s" data-wow-delay: "1s">  
-              <h3 class="light white-text">DATA PENELITIAN ANDA</h3>
-              <h5 class="light white-text">Cari Data Penelitian</h5>
+  <div  id="home" class="parallax-container scrollspy">
+    <div class="parallax"><img src="{% static '1blood-2/img/bg.jpg' %}"></div>
+    <div class=" clients">
+      <div class="row">
+        <div class="col m4 s12 center wow fadeIn" data-wow-duration="1s" data-wow-delay: "1s">
+          <img src="{% static '1blood-2/img/clients/logo.png' %}" >
+        </div>
+        <div class="col m8 s12 wow fadeInLeft" data-wow-duration="1s" data-wow-delay: "1s">  
+          <h3 class="light white-text">DATA PENELITIAN ANDA</h3>
+          <h5 class="light white-text">Cari Data Penelitian</h5>
 
-            <!-- pencarian -->
-              <nav class="cari">
-                <div class="nav-wrapper">
-                  <form>
-                    <div class="input-field">
-                      <input id="search" type="search" name="q" value="{{ request.GET.q }}" required>
-                      <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                      <i class="material-icons">close</i>
-                    </div>
-                  </form>
+          <!-- pencarian -->
+          <nav class="cari">
+            <div class="nav-wrapper">
+              <form>
+                <div class="input-field">
+                  <input id="search" type="search" name="q" value="{{ request.GET.q }}" required>
+                  <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                  <i class="material-icons">close</i>
                 </div>
-              </nav>
+              </form>
             </div>
-          </div>
+          </nav>
         </div>
       </div>
+    </div>
+  </div>
 
-    <!-- PENELITIAN -->
-      <section id="penelitian" class="about scrollspy">
-        <div class="container">
-          <div class="row">
-            <div class="col s12">
-              <ul class="collapsible">
-                <li>
-                  <div class="collapsible-header" ><i class="material-icons">add</i> Tambah Penelitian</div>
-                  <div class="collapsible-body">
-                    <ul class="collection">
-                      <li class="collection-item">
+  <!-- PENELITIAN -->
+  <section id="penelitian" class="about scrollspy">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <ul class="collapsible">
+            <li>
+              <div class="collapsible-header" ><i class="material-icons">add</i> Tambah Penelitian</div>
+              <div class="collapsible-body">
+                <ul class="collection">
+                  <li class="collection-item">
+                    <div class="row">
+                      <form class="col s12" action="" method="POST" enctype='multipart/form-data'>{% csrf_token %}
                         <div class="row">
-                          <form class="col s12" action="" method="POST" enctype='multipart/form-data'>{% csrf_token %}
-                            <div class="row">
-                              <div class="input-field col s12 tambah">
-                                <input id="judul" type="text" class="validate" name="judul" required>
-                                <label for="judul">JUDUL</label>
-                              </div>
-                              <div class="input-field col s12 tambah">
-                                <textarea id="textarea11" class="materialize-textarea" name="abstrak" required></textarea>
-                                <label for="textarea11">ABSTRAK</label>
-                              </div>
-                              <!-- <div class="input-field col s12 tambah">
-                                <input id="tahun" type="text" class="datepicker" name="tahun" required>
-                                <label for="tahun">TAHUN</label>
-                              </div> -->
-                              <div class="input-field col s12 tambah">
-                                <!-- <input id="tahun" type="text" name="tahun" required> -->
-                                {{ formPenelitian.tahun }}
-                                <label for="tahun">TAHUN</label>
-                              </div>
-                              <div class="input-field col s12 tambah">
-                                <input id="lokasi" type="text" class="validate" name="lokasi" required>
-                                <label for="lokasi">LOKASI</label>
-                              </div>
-                              <div class="input-field col s12 tambah">
-                                <input id="ketua" type="text" class="validate" name="ketua" required>
-                                <label for="ketua">KETUA</label>
-                              </div>
-                              <div class="input-field col s12 tambah" id="anggotaPenelitian">
-                                <button class="btn-floating right green" type="button" id="faka"><i class="material-icons">add</i></button>
-                                <input id="anggota" type="text" class="validate" name="anggota">
-                                <label for="anggota">ANGGOTA</label>
-                              </div>
-                              <div class="file-field input-field col s12 tambah">
-                                <div class="btn red darken-2">
-                                  <span>File</span>
-                                  <!-- <input type="file" name="file" id="id_file" required> -->
-                                  {{ formPenelitian.file }}
-                                </div>
-                                <div class="file-path-wrapper">
-                                  <input class="file-path validate" type="text">
-                                </div>
-                                <small id="fileHelpBlock" class="form-text text-muted">
-                                  File laporan harus berupa pdf.
-                                </small>
-                              </div>
-                              <button class="btn waves-effect waves-light right col s12 red darken-2" type="submit" name="action" style="margin-top: 20px; margin-bottom: -20px;" id="btnAddPenelitian" disabled>Submit</button>
+                          <div class="input-field col s12 tambah">
+                            <input id="judul" type="text" class="validate" name="judul" required>
+                            <label for="judul">JUDUL</label>
+                          </div>
+                          <div class="input-field col s12 tambah">
+                            <textarea id="textarea11" class="materialize-textarea" name="abstrak" required></textarea>
+                            <label for="textarea11">ABSTRAK</label>
+                          </div>
+                          <div class="input-field col s12 tambah">
+                            {{ formPenelitian.tahun }}
+                            <label for="tahun">TAHUN</label>
+                          </div>
+                          <div class="input-field col s12 tambah">
+                            <input id="lokasi" type="text" class="validate" name="lokasi" required>
+                            <label for="lokasi">LOKASI</label>
+                          </div>
+                          <div class="input-field col s12 tambah">
+                            <input id="ketua" type="text" class="validate" name="ketua" required>
+                            <label for="ketua">KETUA</label>
+                          </div>
+                          <div class="input-field col s12 tambah" id="anggotaPenelitian">
+                            <button class="btn-floating right green" type="button" id="faka"><i class="material-icons">add</i></button>
+                            <input id="anggota" type="text" class="validate" name="anggota">
+                            <label for="anggota">ANGGOTA</label>
+                          </div>
+                          <div class="file-field input-field col s12 tambah">
+                            <div class="btn red darken-2">
+                              <span>File</span>
+                              {{ formPenelitian.file }}
                             </div>
-                          </form>
+                            <div class="file-path-wrapper">
+                              <input class="file-path validate" type="text">
+                            </div>
+                            <small id="fileHelpBlock" class="form-text text-muted">
+                              File laporan harus berupa pdf.
+                            </small>
+                          </div>
+                          <button class="btn waves-effect waves-light right col s12 red darken-2" type="submit" name="action" style="margin-top: 20px; margin-bottom: -20px;" id="btnAddPenelitian" disabled>Submit</button>
                         </div>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="col s12 light">
-              <div class="card-panel wow slideInRight" data-wow-duration="1s" data-wow-delay: "1.5s">
-                <table class=" highlight responsive-table centered">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>JUDUL</th>
-                      <th>TAHUN</th>
-                      <th>LOKASI</th>
-                      <th>DETAIL</th>
-                      <th>VALIDASI</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% if list_penelitian_self1 %}
-                      {% for i in list_penelitian_self1 %}
-                    <tr>
-                      <td>{{ forloop.counter0|add:list_penelitian_self1.start_index }}</td>
-                      <td>{% if i.status == False %}<a href="{% url 'lppm:penelitian_detail_n' pk=i.pk %}">{{ i.judul }}</a>{% else %}{{ i.judul }}{% endif %}</td>
-                      <td>{{ i.tahun }}</td>
-                      <td>{{ i.lokasi }}</td>
-                      <td><a class="waves-effect waves-light btn-floating modal-trigger blue darken-4" data-target="modal{{ i.pk }}"><i class="material-icons">zoom_out_map</i></a></td>
-                      <td>
-                        {% if i.status == False %}
-                        <img src="{% static 'icon/png/x-2x.png' %}" alt="">
-                        {% else %}
-                        <img src="{% static 'icon/png/check-2x.png' %}" alt="">
-                        {% endif %}
-                      </td>
-                    </tr>
-                      {% endfor %}
-                    {% else %}
-                    <tr>
-                      <td><td>NO DATA</td></td>
-                    </tr>
-                  {% endif %}
-                  </tbody>
-                </table>
-
-              <!-- pagination -->
-              {% if list_penelitian_self1.has_other_pages %}
-              <div class="container center">
-                <ul class="pagination">
-                  {% if list_penelitian_self1.has_previous %}
-                    <li><a href="?page={{ list_penelitian_self1.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
-                  {% else %}
-                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                  {% endif %}
-                  {% for i in list_penelitian_self1.paginator.page_range %}
-                    {% if list_penelitian_self1.number == i %}
-                      <!-- <li class="active">{{ i }}</li> -->
-                      <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
-                    {% else %}
-                      <li><a href="?page={{ i }}">{{ i }}</a></li>
-                    {% endif %}
-                  {% endfor %}
-                  {% if list_penelitian_self1.has_next %}
-                    <li><a href="?page={{ list_penelitian_self1.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
-                  {% else %}
-                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-                  {% endif %}
+                      </form>
+                    </div>
+                  </li>
                 </ul>
               </div>
-              {% endif %}
+            </li>
+          </ul>
+        </div>
+        <div class="col s12 light">
+          <div class="card-panel wow slideInRight" data-wow-duration="1s" data-wow-delay: "1.5s">
+            <table class=" highlight responsive-table centered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>JUDUL</th>
+                  <th>TAHUN</th>
+                  <th>LOKASI</th>
+                  <th>DETAIL</th>
+                  <th>VALIDASI</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if list_penelitian_self1 %}
+                  {% for i in list_penelitian_self1 %}
+                <tr>
+                  <td>{{ forloop.counter0|add:list_penelitian_self1.start_index }}</td>
+                  <td>{% if i.status == False %}<a href="{% url 'lppm:penelitian_detail_n' pk=i.pk %}">{{ i.judul }}</a>{% else %}{{ i.judul }}{% endif %}</td>
+                  <td>{{ i.tahun }}</td>
+                  <td>{{ i.lokasi }}</td>
+                  <td><a class="waves-effect waves-light btn-floating modal-trigger blue darken-4" data-target="modal{{ i.pk }}"><i class="material-icons">zoom_out_map</i></a></td>
+                  <td>
+                    {% if i.status == False %}
+                    <img src="{% static 'icon/png/x-2x.png' %}" alt="">
+                    {% else %}
+                    <img src="{% static 'icon/png/check-2x.png' %}" alt="">
+                    {% endif %}
+                  </td>
+                </tr>
+                  {% endfor %}
+                {% else %}
+                <tr>
+                  <td><td>NO DATA</td></td>
+                </tr>
+                {% endif %}
+              </tbody>
+            </table>
 
+            <!-- pagination -->
+            {% if list_penelitian_self1.has_other_pages %}
+            <div class="container center">
+              <ul class="pagination">
+              {% if list_penelitian_self1.has_previous %}
+                <li><a href="?page={{ list_penelitian_self1.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+              {% else %}
+                <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+              {% endif %}
+              {% for i in list_penelitian_self1.paginator.page_range %}
+                {% if list_penelitian_self1.number == i %}
+                <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+                {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+              {% endfor %}
+              {% if list_penelitian_self1.has_next %}
+                <li><a href="?page={{ list_penelitian_self1.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+              {% else %}
+                <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+              {% endif %}
+              </ul>
             </div>
+            {% endif %}
+
           </div>
         </div>
       </div>
-    </section>
-
+    </div>
+  </section>
 
   <!-- Modal Pnelitian -->
-    {% for l in list_penelitian_self1 %}
-    <div id="modal{{ l.pk }}" class="modal bottom-sheet">
-      <div class="modal-content">
-        <table>
-                        <tbody>
-                          <tr>
-                            <td width="13%">Judul</td>
-                            <td width="2%">:</td>
-                            <td width="85%">{{ l.judul }}</td>
-                          </tr>
-                          <tr>
-                            <td width="13%">Abstrak</td>
-                            <td width="2%">:</td>
-                            <td width="85%">{{ l.abstrak }}</td>
-                          </tr>
-                          <tr>
-                            <td width="13%">Tahun</td>
-                            <td width="2%">:</td>
-                            <td width="85%">{{ l.tahun }}</td>
-                          </tr>
-                          <tr>
-                            <td width="13%">Lokasi</td>
-                            <td width="2%">:</td>
-                            <td width="85%">{{ l.lokasi }}</td>
-                          </tr>
-                          <tr>
-                            <td width="13%">Ketua</td>
-                            <td width="2%">:</td>
-                            <td width="85%">
-                              {% for j in l.anggotapenelitian_set.all %}
-                                {% if j.level == '1' %}
-                                  {{ j.nama }}
-                                {% endif %}
-                              {% endfor %}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td width="13%">Anggota</td>
-                            <td width="2%">:</td>
-                            <td width="85%">
-                              {% for k in l.anggotapenelitian_set.all %}
-                                {% if k.level == '2' %}
-                                {{ k.nama }} <br />
-                                {% endif %}
-                              {% endfor %}
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="modal-footer">
-                      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-                    </div>
-                  </div>
+  {% for l in list_penelitian_self1 %}
+  <div id="modal{{ l.pk }}" class="modal bottom-sheet">
+    <div class="modal-content">
+      <table>
+        <tbody>
+          <tr>
+            <td width="13%">Judul</td>
+            <td width="2%">:</td>
+            <td width="85%">{{ l.judul }}</td>
+          </tr>
+          <tr>
+            <td width="13%">Abstrak</td>
+            <td width="2%">:</td>
+            <td width="85%">{{ l.abstrak }}</td>
+          </tr>
+          <tr>
+            <td width="13%">Tahun</td>
+            <td width="2%">:</td>
+            <td width="85%">{{ l.tahun }}</td>
+          </tr>
+          <tr>
+            <td width="13%">Lokasi</td>
+            <td width="2%">:</td>
+            <td width="85%">{{ l.lokasi }}</td>
+          </tr>
+          <tr>
+            <td width="13%">Ketua</td>
+            <td width="2%">:</td>
+            <td width="85%">
+            {% for j in l.anggotapenelitian_set.all %}
+              {% if j.level == '1' %}
+                {{ j.nama }}
+              {% endif %}
+            {% endfor %}
+            </td>
+          </tr>
+          <tr>
+            <td width="13%">Anggota</td>
+            <td width="2%">:</td>
+            <td width="85%">
+            {% for k in l.anggotapenelitian_set.all %}
+              {% if k.level == '2' %}
+                {{ k.nama }} <br />
+              {% endif %}
+            {% endfor %}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
 {% endfor %}
 
 {% else %}
