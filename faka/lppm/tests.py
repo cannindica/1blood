@@ -1,3 +1,5 @@
 from django.test import TestCase
+from .models import Penelitian, Pengabdian, Dosen, Prodi, Fakultas
 
-# Create your tests here.
+
+# class Penelitian
