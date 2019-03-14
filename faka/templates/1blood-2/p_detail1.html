@@ -22,7 +22,7 @@ nav {
             		<div class="col s12 light">
               			<div class="card-panel wow slideInLeft" data-wow-duration="1s" data-wow-delay: "0.5s">
                 <div class="row">
-                  <form class="col s12" action="" method="POST" enctype='multipart/form-data'>{% csrf_token %}
+                  <form class="col s12" id="formUpdateData" action="" method="POST" enctype='multipart/form-data'>{% csrf_token %}
                   	<input type="hidden" name="aksi" value="update_penelitian">
                     <div class="row">
                       <div class="input-field col s12 tambah">
@@ -33,18 +33,15 @@ nav {
                         <textarea id="textarea2" class="materialize-textarea" name="abstrak" required>{{ penelitian_detail.abstrak }}</textarea>
                         <label for="textarea2">ABSTRAK</label>
                       </div>
-                      <!-- <div class="input-field col s12 tambah">
-                        <input id="tahun" type="text" class="datepicker" name="tahun" required>
-                        <label for="tahun">TAHUN</label>
-                      </div> -->
                       <div class="input-field col s12 tambah">
                         <input id="tahun" type="text" name="tahun" placeholder="{{ penelitian_detail.tahun }}" value="{{ penelitian_detail.tahun }}" required>
-                        <!-- {{ formPenelitian.tahun }} -->
                         <label for="tahun">TAHUN</label>
                       </div>
                       <div class="input-field col s12 tambah">
                         <input id="lokasi" type="text" class="validate" name="lokasi" placeholder="{{ penelitian_detail.lokasi }}" value="{{ penelitian_detail.lokasi }}" required>
                         <label for="lokasi">LOKASI</label>
+                        <div id="map"></div>
+                        <input type="hidden" id='lokasi_id' name='lokasi_id' value="{{ penelitian_detail.lokasi_id }}">
                       </div>
                       <div class="input-field col s12 tambah">
                         <input id="ketua" type="text" class="validate" name="ketua" placeholder="{{ ketua.nama }}" value="{{ ketua.nama }}" required>
@@ -52,7 +49,7 @@ nav {
                       </div>
                       <div class="input-field col s12 tambah" id="anggotaPenelitianHide" style="display: none;">
                         <button class="btn-floating right green" type="button" id="faka" {% if penelitian_detail.status == True %}disabled{% endif %}><i class="material-icons tooltipped" data-position="top" data-tooltip="Tambah Anggota">add</i></button>
-                        <input id="anggota_hidden" type="text" class="validate" name="">
+                        <input id="anggota_hidden" placeholder="" type="text" class="validate" name="">
                         <label for="anggota_hidden">ANGGOTA</label>
                       </div>
                       {% if anggota %}
@@ -68,7 +65,7 @@ nav {
                       {% else %}
                       <div class="input-field col s12 tambah" id="anggotaPenelitian">
                         <button class="btn-floating right green" type="button" id="faka1" {% if penelitian_detail.status == True %}disabled{% endif %}><i class="material-icons tooltipped" data-position="top" data-tooltip="Tambah Anggota">add</i></button>
-                        <input id="anggota_hidden" type="text" class="validate" name="anggota">
+                        <input id="anggota_hidden" placeholder="" type="text" class="validate" name="anggota">
                         <label for="anggota_hidden">ANGGOTA</label>
                       </div>
                       {% endif %}
@@ -121,7 +118,7 @@ nav {
                 <div class="col s12 light">
                     <div class="card-panel wow slideInLeft" data-wow-duration="1s" data-wow-delay: "0.5s">
                 <div class="row">
-                  <form class="col s12" action="" method="POST" enctype='multipart/form-data'>{% csrf_token %}
+                  <form class="col s12" id="formUpdateData" action="" method="POST" enctype='multipart/form-data'>{% csrf_token %}
                     <input type="hidden" name="aksi" value="update_pengabdian">
                     <div class="row">
                       <div class="input-field col s12 tambah">
@@ -144,6 +141,8 @@ nav {
                       <div class="input-field col s12 tambah">
                         <input id="lokasi" type="text" class="validate" name="lokasi" placeholder="{{ pengabdian_detail.lokasi }}" value="{{ pengabdian_detail.lokasi }}" required>
                         <label for="lokasi">LOKASI</label>
+                        <div id="map"></div>
+                        <input type="hidden" id='lokasi_id' name='lokasi_id' value="{{ penelitian_detail.lokasi_id }}">
                       </div>
                       <div class="input-field col s12 tambah">
                         <input id="ketua" type="text" class="validate" name="ketua" placeholder="{{ ketua.nama }}" value="{{ ketua.nama }}" required>
@@ -151,7 +150,7 @@ nav {
                       </div>
                       <div class="input-field col s12 tambah" id="anggotaPenelitianHide" style="display: none;">
                         <button class="btn-floating right green" type="button" id="faka"><i class="material-icons tooltipped" data-position="top" data-tooltip="Tambah Anggota">add</i></button>
-                        <input id="anggota_hidden" type="text" class="validate" name="">
+                        <input id="anggota_hidden" type="text" placeholder="" class="validate" name="">
                         <label for="anggota_hidden">ANGGOTA</label>
                       </div>
                       {% if anggota %}
@@ -167,7 +166,7 @@ nav {
                       {% else %}
                       <div class="input-field col s12 tambah" id="anggotaPenelitian">
                         <button class="btn-floating right green" type="button" id="faka1"><i class="material-icons tooltipped" data-position="top" data-tooltip="Tambah Anggota">add</i></button>
-                        <input id="anggota_hidden" type="text" class="validate" name="anggota">
+                        <input id="anggota_hidden" placeholder="" type="text" class="validate" name="anggota">
                         <label for="anggota_hidden">ANGGOTA</label>
                       </div>
                       {% endif %}
@@ -246,8 +245,91 @@ nav {
 {% endblock content %}
 
 
-<script>
+
 {% block js %}
+    <script>
+      // This example adds a search box to a map, using the Google Place Autocomplete
+      // feature. People can enter geographical searches. The search box will return a
+      // pick list containing a mix of places and predicted search terms.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -33.8688, lng: 151.2195},
+          zoom: 13,
+          mapTypeId: 'roadmap'
+        });
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('lokasi');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            } else {
+              $("#lokasi_id").val(place.place_id);
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
+
+    </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5NXz9eVnyJOA81wimI8WYE08kW_JMe8g&libraries=places&callback=initAutocomplete" async defer></script>
+
+<script>
 (function($) {
     $.fn.checkFileType = function(options) {
         var defaults = {
@@ -269,9 +351,7 @@ nav {
                     $(this).focus();
                 } else {
                     options.success();
-
                 }
-
             });
 
         });
@@ -294,7 +374,7 @@ $(function() {
 
 $(document).ready(function() {
 
-    const tips = document.querySelectorAll('.tooltipped');
+  const tips = document.querySelectorAll('.tooltipped');
   M.Tooltip.init(tips);
   var max_fields      = 5; //maximum input boxes allowed
   var wrapper       = $("#anggotaPenelitian"); //Fields wrapper
@@ -307,7 +387,7 @@ $(document).ready(function() {
     e.preventDefault();
     if(x < max_fields){ //max input box allowed
       x++; //text box increment
-      $(wrapper1).append('<div><a href="#" class="remove_field btn-floating red right"><i class="material-icons">clear</i></a> <input id="anggota" type="text" class="validate" name="anggota" required></div>');
+      $(wrapper1).append('<div><a href="#" class="remove_field btn-floating red right"><i class="material-icons">clear</i></a> <input id="anggota" type="text" class="validate" placeholder="" name="anggota" required></div>');
     }
   });
 
@@ -315,7 +395,7 @@ $(document).ready(function() {
     e.preventDefault();
     if(x < max_fields){ //max input box allowed
       x++; //text box increment
-      $(wrapper).append('<div><a href="#!" class="remove_field btn-floating red right"><i class="material-icons">clear</i></a> <input id="anggota" type="text" class="validate" name="anggota" required></div>');
+      $(wrapper).append('<div><a href="#!" class="remove_field btn-floating red right"><i class="material-icons">clear</i></a> <input id="anggota" type="text" class="validate" placeholder="" name="anggota" required></div>');
     }
   });
   
@@ -328,7 +408,7 @@ $(document).ready(function() {
       $('#faka1').remove();
       x = 1;
     }
-  })
+  });
 
   $(wrapper1).on("click",".remove_field", function(e){ //user click on remove text
     e.preventDefault(); $(this).parent('div').remove(); x--;
@@ -339,7 +419,48 @@ $(document).ready(function() {
       $('#faka1').remove();
       x = 1;
     }
-  })
+  });
+
+
+  /*var tahun = $('#tahun');
+  var dt = new Date().getFullYear();
+  //$(tahun).on("input", function(){
+  $(tahun).on("change", function(){
+    var cek = $('#tahun').val();
+    if($.isNumeric(cek)){
+      if(cek < dt){
+        alertify.error("Tahun Tidak Valid");
+        $("#btnAddPenelitian").prop('disabled', true);
+      } else {
+        $("#btnAddPenelitian").prop('disabled', false);
+      }
+    } else {
+      alertify.error("Format Tahun Salah");
+      $("#btnAddPenelitian").prop('disabled', true);
+    }
+  });*/
+
+  $('#lokasi').on("change", function() {
+    $('#lokasi_id').val("");
+    //console.log($('#lokasi_id').val());
+  });
+
+  $('#formUpdateData').submit(function () {
+    var dt = new Date().getFullYear();
+    var cek = $('#tahun').val();
+    if($.isNumeric(cek)){
+      if(cek < dt){
+        alertify.error("Tahun Tidak Valid");
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      alertify.error("Format Tahun Salah");
+      return false;
+    }
+  });
+
 });
-{% endblock js %}
 </script>
+{% endblock js %}

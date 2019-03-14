@@ -58,6 +58,7 @@ class Penelitian(models.Model):
 	created = models.DateTimeField(auto_now_add=True, auto_now=False)
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 	lokasi = models.CharField(max_length=120, blank=False)
+	lokasi_id = models.CharField(max_length=120, blank=True, null=True, default="")
 	abstrak = models.TextField(blank=False)
 
 
@@ -111,6 +112,7 @@ class Pengabdian(models.Model):
 	created = models.DateTimeField(auto_now_add=True, auto_now=False)
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 	lokasi = models.CharField(max_length=120, blank=False)
+	lokasi_id = models.CharField(max_length=120, blank=True, null=True, default="")
 	abstrak = models.TextField(blank=False)
 
 

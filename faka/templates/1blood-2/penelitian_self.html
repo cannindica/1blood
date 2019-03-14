@@ -79,31 +79,38 @@
                 <ul class="collection">
                   <li class="collection-item">
                     <div class="row">
-                      <form class="col s12" action="" method="POST" enctype='multipart/form-data'>{% csrf_token %}
+                      <form class="col s12" id="formAddData" action="" method="POST" enctype='multipart/form-data'>{% csrf_token %}
                         <div class="row">
                           <div class="input-field col s12 tambah">
-                            <input id="judul" type="text" class="validate" name="judul" required>
+                            <input id="judul" type="text" class="validate" name="judul" placeholder="" required>
                             <label for="judul">JUDUL</label>
                           </div>
                           <div class="input-field col s12 tambah">
-                            <textarea id="textarea11" class="materialize-textarea" name="abstrak" required></textarea>
+                            <textarea id="textarea11" class="materialize-textarea" name="abstrak" placeholder="" required></textarea>
                             <label for="textarea11">ABSTRAK</label>
                           </div>
                           <div class="input-field col s12 tambah">
-                            {{ formPenelitian.tahun }}
+                            <input id="tahun" type="text" name="tahun" placeholder="" value="" required>
+                            <!-- {{ formPenelitian.tahun }} -->
                             <label for="tahun">TAHUN</label>
                           </div>
+                          <!-- <div class="input-field col s12 tambah">
+                            {{ formPenelitian.tahun }}
+                            <label for="tahun">TAHUN</label>
+                          </div> -->
                           <div class="input-field col s12 tambah">
-                            <input id="lokasi" type="text" class="validate" name="lokasi" required>
+                            <input id="lokasi" type="text" class="validate" name="lokasi" placeholder="" required>
                             <label for="lokasi">LOKASI</label>
+                            <div id="map"></div>
+                            <input type="hidden" id='lokasi_id' name='lokasi_id' value="">
                           </div>
                           <div class="input-field col s12 tambah">
-                            <input id="ketua" type="text" class="validate" name="ketua" required>
+                            <input id="ketua" type="text" class="validate" name="ketua" placeholder="" required>
                             <label for="ketua">KETUA</label>
                           </div>
                           <div class="input-field col s12 tambah" id="anggotaPenelitian">
                             <button class="btn-floating right green" type="button" id="faka"><i class="material-icons">add</i></button>
-                            <input id="anggota" type="text" class="validate" name="anggota">
+                            <input id="anggota" type="text" class="validate" placeholder="" name="anggota">
                             <label for="anggota">ANGGOTA</label>
                           </div>
                           <div class="file-field input-field col s12 tambah">
@@ -148,7 +155,7 @@
                   <td>{{ forloop.counter0|add:list_penelitian_self1.start_index }}</td>
                   <td>{% if i.status == False %}<a href="{% url 'lppm:penelitian_detail_n' pk=i.pk %}">{{ i.judul }}</a>{% else %}{{ i.judul }}{% endif %}</td>
                   <td>{{ i.tahun }}</td>
-                  <td>{{ i.lokasi }}</td>
+                  <td>{% if i.lokasi_id %}<a href="https://www.google.com/maps/search/?api=1&query=Google&query_place_id={{ i.lokasi_id }}" target="_blank">{{ i.lokasi }}</a>{% else %}{{ i.lokasi }}{% endif %}</td>
                   <td><a class="waves-effect waves-light btn-floating modal-trigger blue darken-4" data-target="modal{{ i.pk }}"><i class="material-icons">zoom_out_map</i></a></td>
                   <td>
                     {% if i.status == False %}
@@ -222,7 +229,7 @@
           <tr>
             <td width="13%">Lokasi</td>
             <td width="2%">:</td>
-            <td width="85%">{{ l.lokasi }}</td>
+            <td width="85%">{% if i.lokasi_id %}<a href="https://www.google.com/maps/search/?api=1&query=Google&query_place_id={{ i.lokasi_id }}" target="_blank">{{ i.lokasi }}</a>{% else %}{{ i.lokasi }}{% endif %}</td>
           </tr>
           <tr>
             <td width="13%">Ketua</td>
@@ -259,170 +266,164 @@
   <!-- BERANDA -->
   <div  id="home" class="parallax-container scrollspy">
     <div class="parallax"><img src="{% static '1blood-2/img/bg.jpg' %}"></div>
-      <div class=" clients">
-        <div class="row">
-          <div class="col m4 s12 center wow fadeIn" data-wow-duration="1s" data-wow-delay: "1s">
-            <img src="{% static '1blood-2/img/clients/logo.png' %}" >
-          </div>
-          <div class="col m8 s12 wow fadeInLeft" data-wow-duration="1s" data-wow-delay: "1s">  
-            <h3 class="light white-text">DATA ABDIMAS ANDA</h3>
-            <h5 class="light white-text">Cari Data Abdimas</h5>
+    <div class=" clients">
+      <div class="row">
+        <div class="col m4 s12 center wow fadeIn" data-wow-duration="1s" data-wow-delay: "1s">
+          <img src="{% static '1blood-2/img/clients/logo.png' %}" >
+        </div>
+        <div class="col m8 s12 wow fadeInLeft" data-wow-duration="1s" data-wow-delay: "1s">  
+          <h3 class="light white-text">DATA ABDIMAS ANDA</h3>
+          <h5 class="light white-text">Cari Data Abdimas</h5>
+          <!-- pencarian -->
+          <nav class="cari">
+            <div class="nav-wrapper">
+              <form>
+                <div class="input-field">
+                  <input id="search" type="search" name="q" value="{{ request.GET.q }}" required>
+                  <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                  <i class="material-icons">close</i>
+                </div>
+              </form>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            <!-- pencarian -->
-            <nav class="cari">
-              <div class="nav-wrapper">
-                <form>
-                  <div class="input-field">
-                    <input id="search" type="search" name="q" value="{{ request.GET.q }}" required>
-                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                    <i class="material-icons">close</i>
-                  </div>
-                </form>
+  <!-- Pengabdian -->
+  <section id="penelitian" class="about scrollspy">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <ul class="collapsible">
+            <li>
+              <div class="collapsible-header" ><i class="material-icons">add</i> Tambah Abdimas</div>
+              <div class="collapsible-body">
+                <ul class="collection">
+                  <li class="collection-item">
+                    <div class="row">
+                      <form class="col s12" id="formAddData" action="" method="POST" enctype='multipart/form-data'>{% csrf_token %}
+                        <div class="row">
+                          <div class="input-field col s12 tambah">
+                            <input id="judul" type="text" class="validate" name="judul" placeholder="" required>
+                            <label for="judul">JUDUL</label>
+                          </div>
+                          <div class="input-field col s12 tambah">
+                            <textarea id="textarea11" class="materialize-textarea" name="abstrak" placeholder="" required></textarea>
+                            <label for="textarea11">ABSTRAK</label>
+                          </div>
+                          <div class="input-field col s12 tambah">
+                            <input id="tahun" type="text" name="tahun" placeholder="" value="" required>
+                            <!-- {{ formPenelitian.tahun }} -->
+                            <label for="tahun">TAHUN</label>
+                          </div>
+                          <div class="input-field col s12 tambah">
+                            <input id="lokasi" type="text" class="validate" name="lokasi" placeholder="" required>
+                            <label for="lokasi">LOKASI</label>
+                            <div id="map"></div>
+                            <input type="hidden" id='lokasi_id' name='lokasi_id' value="">
+                          </div>
+                          <div class="input-field col s12 tambah">
+                            <input id="ketua" type="text" class="validate" name="ketua" placeholder="" required>
+                            <label for="ketua">KETUA</label>
+                          </div>
+                          <div class="input-field col s12 tambah" id="anggotaPenelitian">
+                            <button class="btn-floating right green" type="button" id="faka"><i class="material-icons">add</i></button>
+                            <input id="anggota" type="text" class="validate" placeholder="" name="anggota">
+                            <label for="anggota">ANGGOTA</label>
+                          </div>
+                          <div class="file-field input-field col s12 tambah">
+                            <div class="btn red darken-2">
+                              <span>File</span>
+                              {{ formPengabdian.file }}
+                            </div>
+                            <div class="file-path-wrapper">
+                              <input class="file-path validate" type="text">
+                            </div>
+                            <small id="fileHelpBlock" class="form-text text-muted">
+                              File laporan harus berupa pdf.
+                            </small>
+                          </div>
+                          <button class="btn waves-effect waves-light right col s12 red darken-2" type="submit" name="action" style="margin-top: 20px; margin-bottom: -20px;" id="btnAddPenelitian" disabled>Submit</button>
+                        </div>
+                      </form>
+                    </div>
+                  </li>
+                </ul>
               </div>
-            </nav>
+            </li>
+          </ul>
+        </div>
+        <div class="col s12 light">
+          <div class="card-panel wow slideInRight" data-wow-duration="1s" data-wow-delay: "1.5s">
+            <table class=" highlight responsive-table centered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>JUDUL</th>
+                  <th>TAHUN</th>
+                  <th>LOKASI</th>
+                  <th>DETAIL</th>
+                  <th>VALIDASI</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% if list_pengabdian_self1 %}
+                {% for i in list_pengabdian_self1 %}
+                <tr>
+                  <td>{{ forloop.counter0|add:list_pengabdian_self1.start_index }}</td>
+                  <td>{% if i.status == False %}<a href="{% url 'lppm:pengabdian_detail_n' pk=i.pk %}">{{ i.judul }}</a>{% else %}{{ i.judul }}{% endif %}</td>
+                  <td>{{ i.tahun }}</td>
+                  <td>{% if i.lokasi_id %}<a href="https://www.google.com/maps/search/?api=1&query=Google&query_place_id={{ i.lokasi_id }}" target="_blank">{{ i.lokasi }}</a>{% else %}{{ i.lokasi }}{% endif %}</td>
+                  <td><a class="waves-effect waves-light btn-floating modal-trigger blue darken-4" data-target="modal{{ i.pk }}"><i class="material-icons">zoom_out_map</i></a></td>
+                  <td>
+                    {% if i.status == False %}
+                    <img src="{% static 'icon/png/x-2x.png' %}" alt="">
+                    {% else %}
+                    <img src="{% static 'icon/png/check-2x.png' %}" alt="">
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              {% else %}
+              <tr>
+                <td><td>NO DATA</td></td>
+              </tr>
+              {% endif %}
+              </tbody>
+            </table>
+
+            <!-- pagination -->
+            {% if list_pengabdian_self1.has_other_pages %}
+            <div class="container center">
+              <ul class="pagination">
+              {% if list_pengabdian_self1.has_previous %}
+                <li><a href="?page={{ list_pengabdian_self1.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+              {% else %}
+                <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+              {% endif %}
+              {% for i in list_pengabdian_self1.paginator.page_range %}
+                {% if list_pengabdian_self1.number == i %}
+                <!-- <li class="active">{{ i }}</li> -->
+                <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+                {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+              {% endfor %}
+              {% if list_pengabdian_self1.has_next %}
+                <li><a href="?page={{ list_pengabdian_self1.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+              {% else %}
+                <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+              {% endif %}
+              </ul>
+            </div>
+            {% endif %}
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Pengabdian -->
-    <section id="penelitian" class="about scrollspy">
-      <div class="container">
-          <div class="row">
-            <div class="col s12">
-              <ul class="collapsible">
-                <li>
-                  <div class="collapsible-header" ><i class="material-icons">add</i> Tambah Abdimas</div>
-                  <div class="collapsible-body">
-                    <ul class="collection">
-                      <li class="collection-item">
-                        <div class="row">
-                          <form class="col s12" action="" method="POST" enctype='multipart/form-data'>{% csrf_token %}
-                            <div class="row">
-                              <div class="input-field col s12 tambah">
-                                <input id="judul" type="text" class="validate" name="judul" required>
-                                <label for="judul">JUDUL</label>
-                              </div>
-                              <div class="input-field col s12 tambah">
-                                <textarea id="textarea11" class="materialize-textarea" name="abstrak" required></textarea>
-                                <label for="textarea11">ABSTRAK</label>
-                              </div>
-                              <!-- <div class="input-field col s12 tambah">
-                                <input id="tahun" type="text" class="datepicker" name="tahun" required>
-                                <label for="tahun">TAHUN</label>
-                              </div> -->
-                              <div class="input-field col s12 tambah">
-                                <!-- <input id="tahun" type="text" name="tahun" required> -->
-                                {{ formPengabdian.tahun }}
-                                <label for="tahun">TAHUN</label>
-                              </div>
-                              <div class="input-field col s12 tambah">
-                                <input id="lokasi" type="text" class="validate" name="lokasi" required>
-                                <label for="lokasi">LOKASI</label>
-                              </div>
-                              <div class="input-field col s12 tambah">
-                                <input id="ketua" type="text" class="validate" name="ketua" required>
-                                <label for="ketua">KETUA</label>
-                              </div>
-                              <div class="input-field col s12 tambah" id="anggotaPenelitian">
-                                <button class="btn-floating right green" type="button" id="faka"><i class="material-icons">add</i></button>
-                                <input id="anggota" type="text" class="validate" name="anggota">
-                                <label for="anggota">ANGGOTA</label>
-                              </div>
-                              <div class="file-field input-field col s12 tambah">
-                                <div class="btn red darken-2">
-                                  <span>File</span>
-                                  <!-- <input type="file" name="file" id="id_file" required> -->
-                                  {{ formPengabdian.file }}
-                                </div>
-                                <div class="file-path-wrapper">
-                                  <input class="file-path validate" type="text">
-                                </div>
-                                <small id="fileHelpBlock" class="form-text text-muted">
-                                  File laporan harus berupa pdf.
-                                </small>
-                              </div>
-                              <button class="btn waves-effect waves-light right col s12 red darken-2" type="submit" name="action" style="margin-top: 20px; margin-bottom: -20px;" id="btnAddPenelitian" disabled>Submit</button>
-                            </div>
-                          </form>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="col s12 light">
-              <div class="card-panel wow slideInRight" data-wow-duration="1s" data-wow-delay: "1.5s">
-                <table class=" highlight responsive-table centered">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>JUDUL</th>
-                      <th>TAHUN</th>
-                      <th>LOKASI</th>
-                      <th>DETAIL</th>
-                      <th>VALIDASI</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% if list_pengabdian_self1 %}
-                      {% for i in list_pengabdian_self1 %}
-                    <tr>
-                      <td>{{ forloop.counter0|add:list_pengabdian_self1.start_index }}</td>
-                      <td>{% if i.status == False %}<a href="{% url 'lppm:pengabdian_detail_n' pk=i.pk %}">{{ i.judul }}</a>{% else %}{{ i.judul }}{% endif %}</td>
-                      <td>{{ i.tahun }}</td>
-                      <td>{{ i.lokasi }}</td>
-                      <td><a class="waves-effect waves-light btn-floating modal-trigger blue darken-4" data-target="modal{{ i.pk }}"><i class="material-icons">zoom_out_map</i></a></td>
-                      <td>
-                        {% if i.status == False %}
-                        <img src="{% static 'icon/png/x-2x.png' %}" alt="">
-                        {% else %}
-                        <img src="{% static 'icon/png/check-2x.png' %}" alt="">
-                        {% endif %}
-                      </td>
-                    </tr>
-                      {% endfor %}
-                    {% else %}
-                    <tr>
-                      <td><td>NO DATA</td></td>
-                    </tr>
-                  {% endif %}
-                  </tbody>
-                </table>
-
-              <!-- pagination -->
-              {% if list_pengabdian_self1.has_other_pages %}
-              <div class="container center">
-                <ul class="pagination">
-                  {% if list_pengabdian_self1.has_previous %}
-                    <li><a href="?page={{ list_pengabdian_self1.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
-                  {% else %}
-                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                  {% endif %}
-                  {% for i in list_pengabdian_self1.paginator.page_range %}
-                    {% if list_pengabdian_self1.number == i %}
-                      <!-- <li class="active">{{ i }}</li> -->
-                      <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
-                    {% else %}
-                      <li><a href="?page={{ i }}">{{ i }}</a></li>
-                    {% endif %}
-                  {% endfor %}
-                  {% if list_pengabdian_self1.has_next %}
-                    <li><a href="?page={{ list_pengabdian_self1.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
-                  {% else %}
-                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-                  {% endif %}
-                </ul>
-              </div>
-              {% endif %}
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
+  </section>
 
   <!-- Modal Pnelitian -->
   {% for l in list_pengabdian_self1 %}
@@ -430,93 +431,176 @@
     <div class="modal-content">
       <table>
         <tbody>
-                          <tr>
-                            <td width="13%">Judul</td>
-                            <td width="2%">:</td>
-                            <td width="85%">{{ l.judul }}</td>
-                          </tr>
-                          <tr>
-                            <td width="13%">Abstrak</td>
-                            <td width="2%">:</td>
-                            <td width="85%">{{ l.abstrak }}</td>
-                          </tr>
-                          <tr>
-                            <td width="13%">Tahun</td>
-                            <td width="2%">:</td>
-                            <td width="85%">{{ l.tahun }}</td>
-                          </tr>
-                          <tr>
-                            <td width="13%">Lokasi</td>
-                            <td width="2%">:</td>
-                            <td width="85%">{{ l.lokasi }}</td>
-                          </tr>
-                          <tr>
-                            <td width="13%">Ketua</td>
-                            <td width="2%">:</td>
-                            <td width="85%">
-                              {% for j in l.anggotapengabdian_set.all %}
-                                {% if j.level == '1' %}
-                                  {{ j.nama }}
-                                {% endif %}
-                              {% endfor %}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td width="13%">Anggota</td>
-                            <td width="2%">:</td>
-                            <td width="85%">
-                              {% for k in l.anggotapengabdian_set.all %}
-                                {% if k.level == '2' %}
-                                {{ k.nama }} <br />
-                                {% endif %}
-                              {% endfor %}
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="modal-footer">
-                      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-                    </div>
-                  </div>
-{% endfor %}
+          <tr>
+            <td width="13%">Judul</td>
+            <td width="2%">:</td>
+            <td width="85%">{{ l.judul }}</td>
+          </tr>
+          <tr>
+            <td width="13%">Abstrak</td>
+            <td width="2%">:</td>
+            <td width="85%">{{ l.abstrak }}</td>
+          </tr>
+          <tr>
+            <td width="13%">Tahun</td>
+            <td width="2%">:</td>
+            <td width="85%">{{ l.tahun }}</td>
+          </tr>
+          <tr>
+            <td width="13%">Lokasi</td>
+            <td width="2%">:</td>
+            <td width="85%">{% if i.lokasi_id %}<a href="https://www.google.com/maps/search/?api=1&query=Google&query_place_id={{ i.lokasi_id }}" target="_blank">{{ i.lokasi }}</a>{% else %}{{ i.lokasi }}{% endif %}</td>
+          </tr>
+          <tr>
+            <td width="13%">Ketua</td>
+            <td width="2%">:</td>
+            <td width="85%">
+            {% for j in l.anggotapengabdian_set.all %}
+              {% if j.level == '1' %}
+                {{ j.nama }}
+              {% endif %}
+            {% endfor %}
+            </td>
+          </tr>
+          <tr>
+            <td width="13%">Anggota</td>
+            <td width="2%">:</td>
+            <td width="85%">
+            {% for k in l.anggotapengabdian_set.all %}
+              {% if k.level == '2' %}
+                {{ k.nama }} <br />
+              {% endif %}
+            {% endfor %}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
+  {% endfor %}
 
 {% endif %}
 
+  <!-- notifikasi -->
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large blue modal-trigger " data-target="modalnotif">
+      <i class="large material-icons">notifications</i>
+    </a>
+  </div>
 
-    <!-- notifikasi -->
-    <div class="fixed-action-btn">
-      <a class="btn-floating btn-large blue modal-trigger " data-target="modalnotif">
-        <i class="large material-icons">notifications</i>
-      </a>
+  <!-- Modal Structure -->
+  <div id="modalnotif" class="modal bottom-sheet">
+    <h5 class="center">NOTIFIKASI</h5><hr style="width: 200px">
+    <div class="modal-content">
+      <table>
+        <tbody>
+        {% for i in user.notifications.all %}
+          <tr>
+            <td>
+              <a href="{% url 'lppm:validasi' pk=i.pk %}" {% if i.unread == False %}style="color: green;"{% endif %}>
+                {{ i.actor.dosen }} {{ i.verb }}. <small>{{ i.timesince }}</small>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
     </div>
-
-    <!-- Modal Structure -->
-    <div id="modalnotif" class="modal bottom-sheet">
-      <h5 class="center">NOTIFIKASI</h5><hr style="width: 200px">
-      <div class="modal-content">
-        <table>
-          <tbody>
-            {% for i in user.notifications.all %}
-            <tr>
-              <td>
-                <a href="{% url 'lppm:validasi' pk=i.pk %}" {% if i.unread == False %}style="color: green;"{% endif %}>
-                  {{ i.actor.dosen }} {{ i.verb }}. <small>{{ i.timesince }}</small>
-                </a>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-      </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
     </div>
+  </div>
 {% endblock content %}
 
-<script>
 {% block js %}
+    <script>
+      // This example adds a search box to a map, using the Google Place Autocomplete
+      // feature. People can enter geographical searches. The search box will return a
+      // pick list containing a mix of places and predicted search terms.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -33.8688, lng: 151.2195},
+          zoom: 13,
+          mapTypeId: 'roadmap'
+        });
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('lokasi');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            } else {
+              $("#lokasi_id").val(place.place_id);
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+          /*$("#lokasi_id").val(place.place_id);*/
+        });
+      }
+
+    </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5NXz9eVnyJOA81wimI8WYE08kW_JMe8g&libraries=places&callback=initAutocomplete" async defer></script>
+
+<script>
+
 (function($) {
     $.fn.checkFileType = function(options) {
         var defaults = {
@@ -545,8 +629,23 @@ $(function() {
     $('#id_file').checkFileType({
         allowedExtensions: ['pdf'],
         success: function() {
-            /*alert('Success');*/
-            $("#btnAddPenelitian").prop('disabled', false);
+          $("#btnAddPenelitian").prop('disabled', false);
+
+            /*var dt = new Date().getFullYear();
+            var cek = $('#tahun').val();
+            if($.isNumeric(cek)){
+      if(cek < dt){
+        alertify.error("Tahun Tidak Valid");
+        $("#btnAddPenelitian").prop('disabled', true);
+      } else {
+        $("#btnAddPenelitian").prop('disabled', false);
+      }
+    } else {
+      alertify.error("Format Tahun Salah");
+      $("#btnAddPenelitian").prop('disabled', true);
+    }*/
+
+
         },
         error: function() {
             alertify.error("Format File Salah");
@@ -554,7 +653,6 @@ $(function() {
         }
     });
 });
-
 
 $(document).ready(function() {
   var max_fields      = 5; //maximum input boxes allowed
@@ -567,16 +665,69 @@ $(document).ready(function() {
     if(x < max_fields){ //max input box allowed
       x++; //text box increment
       /*$(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>');*/ //add input box
-      $(wrapper).append('<div><a href="#" class="remove_field btn-floating red right"><i class="material-icons">clear</i></a> <input id="anggota" type="text" class="validate" name="anggota" required></div>');
+      $(wrapper).append('<div><a href="#" class="remove_field btn-floating red right"><i class="material-icons">clear</i></a> <input id="anggota" type="text" class="validate" name="anggota" placeholder="" required></div>');
     }
   });
   
   $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
     e.preventDefault(); $(this).parent('div').remove(); x--;
-  })
+  });
+
+  /*var tahun = $('#tahun');
+  var dt = new Date().getFullYear();
+  //$(tahun).on("input", function(){
+  $(tahun).on("change", function(){
+    var cek = $('#tahun').val();
+    if($.isNumeric(cek)){
+      if(cek < dt){
+        alertify.error("Tahun Tidak Valid");
+        $("#btnAddPenelitian").prop('disabled', true);
+      } else {
+        //$("#btnAddPenelitian").prop('disabled', false);
+
+
+        $('#id_file').checkFileType({
+        allowedExtensions: ['pdf'],
+        success: function() {
+
+
+            $("#btnAddPenelitian").prop('disabled', false);
+        },
+        error: function() {
+            //alertify.error("Format File Salah");
+             $("#btnAddPenelitian").prop('disabled', true);
+        }
+    });
+
+      }
+    } else {
+      alertify.error("Format Tahun Salah");
+      $("#btnAddPenelitian").prop('disabled', true);
+    }
+  });*/
+
+
+  $('#formAddData').submit(function () {
+    var dt = new Date().getFullYear();
+    var cek = $('#tahun').val();
+    if($.isNumeric(cek)){
+      if(cek < dt){
+        alertify.error("Tahun Tidak Valid");
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      alertify.error("Format Tahun Salah");
+      return false;
+    }
+  });
+
 });
-{% endblock js %}
+
 </script>
+
+{% endblock js %}
 
 {% block chart_penelitian %}{% endblock chart_penelitian %}
 
